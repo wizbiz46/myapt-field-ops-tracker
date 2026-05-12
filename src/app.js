@@ -52,15 +52,32 @@ function derivedToday(){
     .map(b => ({...b, generated_from_master:true}));
 }
 function scoreBuilding(b){
-  const fp = Number(b.floorplan_count || 0);
+  const fp = Number(b.floorplan_count || b.known_floorplan_count || b.distinct_unfilmed_floorplans || 0);
   const statusScore = {'No coverage — film needed':50,'Partial coverage — capture needed':35,'Leasing follow-up needed':25,'Needs Review':15}[b.media_status] || 0;
   return statusScore + (b.priority==='A'?10:0) + Math.min(fp,80)/4 - (b.dnp?8:0);
 }
 function badgesFor(b){
-  const arr = [...(b.badges || [])];
-  if(b.dnp && !arr.includes('DNP')) arr.push('DNP');
-  if(b.mute_alerts && !arr.includes('Muted alerts')) arr.push('Muted alerts');
+  const raw = b.badges;
+  const arr = Array.isArray(raw) ? [...raw] : String(raw || '').split(/\s*[|·,]\s*/).filter(Boolean);
+  if((b.dnp || b.dnp_flag) && !arr.includes('DNP')) arr.push('DNP');
+  if((b.mute_alerts === true || String(b.mute_alerts).toLowerCase()==='true') && !arr.includes('Muted alerts')) arr.push('Muted alerts');
   return arr;
+}
+function normKey(k){ return String(k || '').trim().toUpperCase(); }
+function findBuilding(key){ return state.buildings.find(x=>normKey(x.building_key)===normKey(key)); }
+function findDaily(key){ return (state.daily || []).find(x=>normKey(x.building_key)===normKey(key)); }
+function parseUnitsByFloorplan(b){
+  const raw = b.units_by_floorplan || b.units_by_floorplan_json;
+  if(!raw) return {};
+  if(typeof raw === 'object') return raw;
+  try { return JSON.parse(raw); } catch(e) { return {}; }
+}
+function floorplanOpportunitiesHtml(b){
+  const fps = parseUnitsByFloorplan(b);
+  const rows = Object.entries(fps).map(([id, fp])=>({ id, ...fp, units: Array.isArray(fp.units) ? fp.units : String(fp.units || '').split(/[|,]/).map(x=>x.trim()).filter(Boolean) }))
+    .sort((a,b)=>(Number(b.beds)-Number(a.beds)) || (Number(b.sqft)-Number(a.sqft)));
+  if(!rows.length) return '<div class="empty">No available floorplan/unit details were included in this daily row.</div>';
+  return rows.map(fp=>`<div class="detail-row"><b>${esc(fp.beds==0?'Studio':`${fp.beds || '?'} bed`)} / ${esc(fp.baths || '?')} bath / ${esc(fp.sqft || '?')} sqft</b><div class="muted">${esc(fp.id)}</div><div><b>Units:</b> ${esc(fp.units.length ? fp.units.join(' · ') : 'Unit numbers not listed')}</div></div>`).join('');
 }
 function badgeHtml(label, cls=''){ return `<span class="badge ${cls}">${esc(label)}</span>`; }
 function statusBadge(s){ return badgeHtml(s || 'Unclassified', statusColors[s] || ''); }
@@ -81,7 +98,7 @@ function renderToday(){
     ['Leasing', state.buildings.filter(b=>b.floorplan_visibility?.startsWith('Only shows')).length],
     ['Partners YES', state.partners.filter(p=>p.Status==='YES').length],
   ].map(([l,v])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('');
-  $('todayList').innerHTML = today.length ? today.slice(0,18).map(buildingCard).join('') : `<div class="empty">No current opportunities.</div>`;
+  $('todayList').innerHTML = today.length ? today.map(buildingCard).join('') : `<div class="empty">No current opportunities.</div>`;
   wireBuildingCards('todayList');
 }
 function renderMedia(){
@@ -101,10 +118,10 @@ function renderMedia(){
   wireBuildingCards('mediaList');
 }
 function buildingCard(b){
-  const fp = b.floorplan_count ? `${b.floorplan_count} FPs` : (b.floorplan_visibility || 'FP count unknown');
+  const fp = b.distinct_unfilmed_floorplans ? `${b.distinct_unfilmed_floorplans} unfilmed FPs · ${b.total_available_units || 0} units` : (b.floorplan_count ? `${b.floorplan_count} FPs` : (b.floorplan_visibility || 'FP count unknown'));
   const sub = [b.neighborhood, b.management_company, fp].filter(Boolean).join(' · ');
   const badges = [statusBadge(b.media_status), ...badgesFor(b).slice(0,5).map(x=>badgeHtml(x, x==='DNP'?'red':x==='Tour24'?'blue':''))].join('');
-  return `<article class="card" data-building="${esc(b.building_key)}"><div><div class="card-title">${esc(b.building_name)}</div><div class="card-sub">${esc(sub)}</div><div class="badges">${badges}</div></div><div class="status-pill">${esc(b.priority || '')}<br>${esc(b.status || '')}</div></article>`;
+  return `<article class="card" data-building="${esc(b.building_key)}"><div><div class="card-title">${esc(b.building_name)}</div><div class="card-sub">${esc(sub)}</div><div class="badges">${badges}</div></div><div class="status-pill">${esc(b.priority || '')}<br>${esc(b.status || b.building_status || '')}</div></article>`;
 }
 function wireBuildingCards(id){ document.querySelectorAll(`#${id} [data-building]`).forEach(el=>el.onclick=()=>openBuilding(el.dataset.building)); }
 
@@ -137,8 +154,10 @@ function renderCaptures(){
 }
 
 function openBuilding(key){
-  const b=state.buildings.find(x=>x.building_key===key); if(!b) return;
-  const caps=state.captures.filter(c=>c.building_key===key);
+  const master=findBuilding(key);
+  const daily=findDaily(key);
+  const b={...(master || {}), ...(daily || {})}; if(!b.building_key) return;
+  const caps=state.captures.filter(c=>normKey(c.building_key)===normKey(key));
   const showLeasing = /^Only shows On Market FP/i.test(b.floorplan_visibility || '');
   const leasingHtml = showLeasing ? `
   <h3 style="margin-top:18px">Leasing floorplan follow-up</h3>
@@ -157,12 +176,14 @@ function openBuilding(key){
     ${detail('Filmed floorplans', b.filmed_floorplans || 'None logged')}
     ${detail('YouTube notes', b.youtube_notes || b.youtube_status || 'None')}
     ${detail('Notes', b.notes || 'None')}
+    ${b.distinct_unfilmed_floorplans ? detail('Daily opportunity', `${b.distinct_unfilmed_floorplans} unfilmed floorplans · ${b.total_available_units || 0} available units · threshold ${b.threshold_required || ''}`) : ''}
   </div>
+  ${b.units_by_floorplan_json || b.units_by_floorplan ? `<h3 style="margin-top:18px">Available floorplans + units to capture</h3><div class="list">${floorplanOpportunitiesHtml(b)}</div>` : ''}
   ${leasingHtml}
   <h3 style="margin-top:18px">Captured units (${caps.length})</h3><div class="list">${caps.length?caps.map(c=>`<div class="detail-row"><b>Unit ${esc(c.unit_number)}</b><div class="muted">${esc([c.bed_count,c.floorplan_name,c.direction].filter(Boolean).join(' · '))}</div><div>${esc(c.notes||'')}</div></div>`).join(''):'<div class="empty">No captured units for this building.</div>'}</div>`;
   openDrawer('buildingDrawer');
   document.querySelector('[data-add-capture-for]')?.addEventListener('click', e=>openCaptureForm(null, e.target.dataset.addCaptureFor));
-  document.querySelector('[data-edit-building]')?.addEventListener('click', e=>openBuildingEdit(e.target.dataset.editBuilding));
+  document.querySelector('[data-edit-building]')?.addEventListener('click', e=> master ? openBuildingEdit(e.target.dataset.editBuilding) : toast('Pull/update building master first'));
   if(showLeasing){
     $('saveLeasingBtn').onclick=()=>{ b.leasing_outreach_status=$('leasingStatus').value; b.leasing_notes=$('leasingNotes').value; b.floorplan_docs_link=$('floorplanDocsLink').value; save(); toast('Leasing follow-up saved'); render(); };
   }
