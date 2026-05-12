@@ -1,0 +1,374 @@
+{
+  "name": "myAPT - Daily Filming Alert + Daily Capture Opportunities",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * *"
+            }
+          ]
+        }
+      },
+      "id": "a45ac54f-dc20-42b7-a64a-cf1566b4082d",
+      "name": "Daily 8AM Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -624,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1THzRvETIeCVzPmc81LXFQ7MmyksmRfqunTNhMlu_N3s",
+          "mode": "list",
+          "cachedResultName": "Inventory LIVE",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1THzRvETIeCVzPmc81LXFQ7MmyksmRfqunTNhMlu_N3s/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "units",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1THzRvETIeCVzPmc81LXFQ7MmyksmRfqunTNhMlu_N3s/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "8ea823ea-6e2a-4df2-a724-123670435a59",
+      "name": "Get Today's Inventory",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -416,
+        64
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jAewuVXMHzLlZKgf",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Uqlaij6U2Q9lrNpDVsCDm23KkeM6W89uDjykmVRwm3w",
+          "mode": "list",
+          "cachedResultName": "Alerts Sheet 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Uqlaij6U2Q9lrNpDVsCDm23KkeM6W89uDjykmVRwm3w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Uqlaij6U2Q9lrNpDVsCDm23KkeM6W89uDjykmVRwm3w/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "6922f13e-4639-43d3-886f-05290e23d121",
+      "name": "Get Building Master",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -192,
+        64
+      ],
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jAewuVXMHzLlZKgf",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const masters = $('Get Building Master').all();\nconst today = new Date().toISOString().split('T')[0];\nconst generatedAt = new Date().toISOString();\nconst cutoff = new Date();\ncutoff.setDate(cutoff.getDate() + 2);\n\nfunction norm(v) { return (v ?? '').toString().trim(); }\nfunction isTrue(v) { return v === true || norm(v).toUpperCase() === 'TRUE'; }\nfunction includesAny(s, needles) { const x = norm(s).toLowerCase(); return needles.some(n => x.includes(n)); }\nfunction normalizeMedia(master) {\n  const strategy2 = norm(master['Media Strategy 2']).toLowerCase();\n  const raw = [master['Media Strategy 2'], master['Media Strategy'], master['Does building have youtube channel'], master['Youtube Notes']]\n    .map(norm).join(' ').toLowerCase();\n  const badges = [];\n  const fpVisibility = norm(master['Availble FPs on website']);\n  if (norm(master.DNP) === 'DNP' || norm(master.Status).includes('DNP')) badges.push('DNP');\n  if (isTrue(master.skip_building)) badges.push('Muted alerts');\n  if (raw.includes('tour24')) badges.push('Tour24');\n  if (/only shows on market/i.test(fpVisibility)) badges.push('On-market FPs only');\n  if (/all fp shown/i.test(fpVisibility)) badges.push('All FPs shown');\n  if (norm(master['Different tiers finishes']).toLowerCase() === 'yes') badges.push('Different tier finishes');\n\n  let mediaStatus;\n  if (!strategy2) mediaStatus = 'Needs Review';\n  else if (strategy2.includes('complete')) mediaStatus = 'Complete';\n  else if (strategy2.includes('partial') || strategy2.includes('youtube + noi')) mediaStatus = 'Partial coverage \u2014 capture needed';\n  else if (strategy2.includes('reach out') || strategy2.includes('ask')) mediaStatus = 'Leasing follow-up needed';\n  else if (strategy2.includes('youtube')) mediaStatus = 'YouTube usable for MVP';\n  else if (strategy2.includes('need to film') || strategy2.includes('noi') || raw.includes('yo chicago') || raw.includes('voiced') || raw.includes('tour24')) mediaStatus = 'No coverage \u2014 film needed';\n  else mediaStatus = 'Needs Review';\n  if (badges.includes('Tour24') && mediaStatus !== 'Complete') mediaStatus = 'No coverage \u2014 film needed';\n  return { mediaStatus, badges };\n}\nfunction parseAvailDate(availStr) {\n  if (!availStr) return null;\n  if (availStr instanceof Date) return availStr;\n  const s = norm(availStr);\n  const slash = s.split('/').map(Number);\n  if (slash.length === 3 && slash.every(n => !Number.isNaN(n))) return new Date(slash[2], slash[0] - 1, slash[1]);\n  const iso = new Date(s);\n  if (!Number.isNaN(iso.getTime())) return iso;\n  return null;\n}\n\nconst masterLookup = {};\nmasters.forEach(m => {\n  if (m.json.building_key) masterLookup[norm(m.json.building_key).toUpperCase()] = m.json;\n});\n\nconst buildingAgg = {};\nconst unmappedBuildings = new Set();\n\nconst inventoryItems = $('Get Today\\'s Inventory').all();\nfor (const item of inventoryItems) {\n  const unit = item.json;\n  const availDate = parseAvailDate(unit.available_date);\n  if (!availDate || availDate > cutoff) continue;\n\n  const bk = norm(unit.building_key).toUpperCase();\n  if (!bk) continue;\n  const master = masterLookup[bk];\n  if (!master) { unmappedBuildings.add(bk); continue; }\n  if (master.cooldown_until && new Date(master.cooldown_until) > new Date(today)) continue;\n\n  const beds = parseInt(unit.beds) || 0;\n  const baths = parseFloat(unit.baths) || 0;\n  const sqft = parseInt(unit.sqft) || 0;\n  if (!sqft) continue;\n  const unitNumber = norm(unit.unit_number || unit.unit || unit.name);\n  const fpId = `${bk}-${beds}BR${baths}BA-${sqft}`;\n\n  if (!buildingAgg[bk]) {\n    const filmedSet = new Set(norm(master.filmed_floorplans).split('|').map(f => f.trim().toUpperCase()).filter(Boolean));\n    buildingAgg[bk] = { master, filmedFPs: filmedSet, unfilmedFPs: new Set(), unitsByFloorplan: {}, totalUnits: 0 };\n  }\n\n  const agg = buildingAgg[bk];\n  agg.totalUnits++;\n  if (agg.filmedFPs.has(fpId.toUpperCase())) continue;\n  agg.unfilmedFPs.add(fpId);\n  if (!agg.unitsByFloorplan[fpId]) agg.unitsByFloorplan[fpId] = { beds, baths, sqft, units: [], unit_count: 0 };\n  if (unitNumber) agg.unitsByFloorplan[fpId].units.push(unitNumber);\n  agg.unitsByFloorplan[fpId].unit_count = agg.unitsByFloorplan[fpId].units.length;\n}\n\nconst qualifiers = [];\nfor (const buildingKey of Object.keys(buildingAgg)) {\n  const agg = buildingAgg[buildingKey];\n  const master = agg.master;\n  const distinctUnfilmedFPs = agg.unfilmedFPs.size;\n  const size = norm(master.building_size).toLowerCase();\n  let threshold;\n  if (size === 'large') threshold = 7;\n  else if (size === 'small') threshold = 3;\n  else continue;\n  if (distinctUnfilmedFPs < threshold) continue;\n\n  const media = normalizeMedia(master);\n  qualifiers.push({\n    generated_at: generatedAt,\n    building_name: master.building_name,\n    building_key: buildingKey,\n    neighborhood: master.neighborhood || master.Neighborhood || '',\n    building_size: master.building_size,\n    priority: master.Priority || 'B',\n    building_status: master.Status || '',\n    dnp_flag: norm(master.DNP) === 'DNP' || norm(master.Status).includes('DNP'),\n    mute_alerts: isTrue(master.skip_building),\n    media_status: media.mediaStatus,\n    badges: media.badges,\n    floorplan_visibility: master['Availble FPs on website'] || '',\n    known_floorplan_count: master['# of Floorplans'] || '',\n    different_tier_finishes: master['Different tiers finishes'] || '',\n    distinct_unfilmed_floorplans: distinctUnfilmedFPs,\n    threshold_required: threshold,\n    total_available_units: agg.totalUnits,\n    units_by_floorplan: agg.unitsByFloorplan,\n    last_filmed_date: master.last_filmed_date || 'Never',\n    filmed_floorplans: master.filmed_floorplans || '',\n    leasing_outreach_status: master.leasing_outreach_status || '',\n    leasing_notes: master.leasing_notes || '',\n    floorplan_docs_link: master.floorplan_docs_link || '',\n    website: master.Website || '',\n    management_company: master['Management Company'] || '',\n    notes: master.notes || '',\n  });\n}\n\nqualifiers.sort((a, b) => {\n  const aTier = String(a.priority || 'Z');\n  const bTier = String(b.priority || 'Z');\n  if (aTier !== bTier) return aTier.localeCompare(bTier);\n  return (b.distinct_unfilmed_floorplans - b.threshold_required) - (a.distinct_unfilmed_floorplans - a.threshold_required);\n});\n\nreturn [\n  ...qualifiers.map(q => ({ json: q })),\n  ...(unmappedBuildings.size > 0 ? [{ json: { generated_at: generatedAt, _diagnostic: true, diagnostic_type: 'unmapped_buildings', diagnostic_message: [...unmappedBuildings].join(', '), unmapped_buildings: [...unmappedBuildings].join(', '), unmapped_count: unmappedBuildings.size } }] : [])\n];"
+      },
+      "id": "88fe4fc5-2dc9-4fc6-8e39-768e0fa9646a",
+      "name": "Normalize & Score",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        32,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "qualifier-check",
+              "leftValue": "={{ $input.all().filter(i => !i.json._diagnostic).length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "8f24a0ec-fd64-4ff0-8a9a-e8c428d33c12",
+      "name": "Any Qualifiers?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const allItems = $input.all();\nconst urgentStatuses = new Set(['No coverage \u2014 film needed', 'Partial coverage \u2014 capture needed', 'Leasing follow-up needed', 'Needs Review']);\nconst qualifiers = allItems.filter(i => !i.json._diagnostic && !i.json.mute_alerts && urgentStatuses.has(i.json.media_status));\nconst diagnostic = allItems.find(i => i.json._diagnostic);\nconst TELEGRAM_LIMIT = 3800;\nconst bedLabel = (beds) => beds === 0 ? 'Studio' : beds === 1 ? '1 Bed' : `${beds} Bed`;\nconst blocks = qualifiers.map((i, idx) => {\n  const q = i.json;\n  const fpLines = Object.values(q.units_by_floorplan || {})\n    .sort((a,b) => (b.beds - a.beds) || (b.sqft - a.sqft))\n    .map(fp => `   ${bedLabel(fp.beds)} / ${fp.baths}BA / ${fp.sqft} sqft \u2014 ${fp.units.join(' | ')}`);\n  const badges = Array.isArray(q.badges) && q.badges.length ? `\\n   ${q.badges.join(' \u00b7 ')}` : '';\n  return `${idx + 1}. \ud83c\udfac <b>${q.building_name}</b> [${q.building_size}] \u2014 ${q.neighborhood}\\n` +\n    `   <b>${q.distinct_unfilmed_floorplans}</b> unfilmed floorplans (need ${q.threshold_required}) \u00b7 ${q.media_status}${badges}\\n` +\n    `   Last filmed: ${q.last_filmed_date}\\n\\n` + fpLines.join('\\n');\n});\nconst header = `<b>myAPT Filming Alert</b> \u2014 ${qualifiers.length} building(s) ready`;\nlet diagnosticBlock = '';\nif (diagnostic && diagnostic.json.unmapped_count > 0) diagnosticBlock = `\\n\\n\u26a0\ufe0f <b>${diagnostic.json.unmapped_count} buildings</b> in YGL not in master sheet:\\n<code>${diagnostic.json.unmapped_buildings}</code>`;\nconst messages = [];\nlet currentMsg = header;\nlet partNum = 1;\nfor (const block of blocks) {\n  const candidate = currentMsg + '\\n\\n' + block;\n  if (candidate.length > TELEGRAM_LIMIT) { messages.push(currentMsg); partNum++; currentMsg = `<b>myAPT Filming Alert (cont. ${partNum})</b>\\n\\n` + block; }\n  else currentMsg = candidate;\n}\nif (diagnosticBlock) {\n  if ((currentMsg + diagnosticBlock).length <= TELEGRAM_LIMIT) currentMsg += diagnosticBlock;\n  else { messages.push(currentMsg); currentMsg = `<b>myAPT Alert \u2014 Unmapped Buildings</b>${diagnosticBlock}`; }\n}\nmessages.push(currentMsg);\nreturn messages.map(msg => ({ json: { message: msg } }));"
+      },
+      "id": "b0f92864-a42b-4e45-a579-bc6d5400fec6",
+      "name": "Format Alert Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        -48
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "6106328180",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "disable_notification": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "7280d1fd-9aed-4a3d-857e-881a52497ac4",
+      "name": "Send Telegram Alert1",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        688,
+        -48
+      ],
+      "webhookId": "773a115a-1b9c-4c86-b519-1d221a1b9140",
+      "credentials": {
+        "telegramApi": {
+          "id": "XZKfouoQpIx3MT9H",
+          "name": "Telegram account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "clear",
+        "documentId": {
+          "__rl": true,
+          "value": "1Uqlaij6U2Q9lrNpDVsCDm23KkeM6W89uDjykmVRwm3w",
+          "mode": "list",
+          "cachedResultName": "Alerts Sheet 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Uqlaij6U2Q9lrNpDVsCDm23KkeM6W89uDjykmVRwm3w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Daily Capture Opportunities",
+          "mode": "name",
+          "cachedResultName": "Daily Capture Opportunities"
+        },
+        "range": "A:AD"
+      },
+      "id": "fixed-clear-daily-capture-opportunities",
+      "name": "Clear Daily Capture Opportunities",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        32,
+        240
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jAewuVXMHzLlZKgf",
+          "name": "Google Sheets account"
+        }
+      },
+      "notes": "Clears current snapshot before writing fresh Daily Capture Opportunities rows. If import asks, select the Alerts Sheet 2 spreadsheet and the Daily Capture Opportunities tab."
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(i => {\n  const q = i.json;\n  if (q._diagnostic) {\n    return { json: {\n      generated_at: q.generated_at,\n      diagnostic_type: q.diagnostic_type || 'diagnostic',\n      diagnostic_message: q.diagnostic_message || q.unmapped_buildings || '',\n    }};\n  }\n  return { json: {\n    generated_at: q.generated_at,\n    building_key: q.building_key,\n    building_name: q.building_name,\n    neighborhood: q.neighborhood,\n    priority: q.priority,\n    building_status: q.building_status,\n    dnp_flag: q.dnp_flag,\n    mute_alerts: q.mute_alerts,\n    building_size: q.building_size,\n    media_status: q.media_status,\n    badges: Array.isArray(q.badges) ? q.badges.join(' | ') : q.badges,\n    floorplan_visibility: q.floorplan_visibility,\n    known_floorplan_count: q.known_floorplan_count,\n    different_tier_finishes: q.different_tier_finishes,\n    distinct_unfilmed_floorplans: q.distinct_unfilmed_floorplans,\n    threshold_required: q.threshold_required,\n    total_available_units: q.total_available_units,\n    units_by_floorplan_json: JSON.stringify(q.units_by_floorplan || {}),\n    last_filmed_date: q.last_filmed_date,\n    filmed_floorplans: q.filmed_floorplans,\n    leasing_outreach_status: q.leasing_outreach_status,\n    leasing_notes: q.leasing_notes,\n    floorplan_docs_link: q.floorplan_docs_link,\n    website: q.website,\n    management_company: q.management_company,\n    notes: q.notes,\n    diagnostic_type: '',\n    diagnostic_message: '',\n  }};\n});\nreturn rows;"
+      },
+      "id": "fixed-prepare-daily-capture-rows",
+      "name": "Prepare Daily Capture Rows",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        256,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Uqlaij6U2Q9lrNpDVsCDm23KkeM6W89uDjykmVRwm3w",
+          "mode": "list",
+          "cachedResultName": "Alerts Sheet 2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Uqlaij6U2Q9lrNpDVsCDm23KkeM6W89uDjykmVRwm3w/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Daily Capture Opportunities",
+          "mode": "name",
+          "cachedResultName": "Daily Capture Opportunities"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "fixed-append-daily-capture-opportunities",
+      "name": "Append Daily Capture Opportunities",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        480,
+        240
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "jAewuVXMHzLlZKgf",
+          "name": "Google Sheets account"
+        }
+      },
+      "notes": "Appends normalized opportunity rows after Clear Daily Capture Opportunities."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Daily 8AM Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Today's Inventory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Today's Inventory": {
+      "main": [
+        [
+          {
+            "node": "Get Building Master",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Building Master": {
+      "main": [
+        [
+          {
+            "node": "Clear Daily Capture Opportunities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize & Score": {
+      "main": [
+        [
+          {
+            "node": "Any Qualifiers?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare Daily Capture Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Any Qualifiers?": {
+      "main": [
+        [
+          {
+            "node": "Format Alert Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Alert Message": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Alert1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clear Daily Capture Opportunities": {
+      "main": [
+        [
+          {
+            "node": "Normalize & Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Daily Capture Rows": {
+      "main": [
+        [
+          {
+            "node": "Append Daily Capture Opportunities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "fixed-daily-capture-opportunities-v1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "85f025183714a8e398ba69834a3c37089c85ddd485fc3d4175ef36aab7e0f54b"
+  },
+  "id": "wZ6v3G2Es5TZnQzl",
+  "tags": []
+}
