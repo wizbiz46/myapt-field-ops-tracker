@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#171512" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="myAPT Ops" />
+  <title>myAPT Field Ops</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">myAPT</div>
+        <h1>Field Ops</h1>
+      </div>
+      <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙</button>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="today">Today</button>
+      <button class="tab" data-tab="media">Media</button>
+      <button class="tab" data-tab="partners">Partners</button>
+      <button class="tab" data-tab="capture">Capture Log</button>
+    </nav>
+
+    <main>
+      <section class="panel active" id="todayPanel">
+        <div class="hero-card">
+          <div>
+            <div class="eyebrow">Current snapshot</div>
+            <h2 id="todayTitle">Today’s capture opportunities</h2>
+            <p id="todaySub">Built from building master seed until n8n writes the Daily Capture Opportunities sheet.</p>
+          </div>
+          <button class="primary-btn" id="exportStateBtn">Export backup</button>
+        </div>
+        <div class="stats-grid" id="todayStats"></div>
+        <div class="section-head">
+          <h3>Highest-priority media work</h3>
+          <button class="small-btn" data-tab-jump="media">Open Media</button>
+        </div>
+        <div class="list" id="todayList"></div>
+      </section>
+
+      <section class="panel" id="mediaPanel">
+        <div class="section-head">
+          <div>
+            <h3>Media buildings</h3>
+            <p class="muted">Edit missing film status/details locally, then export sheet updates.</p>
+          </div>
+          <button class="small-btn" id="exportBuildingsCsvBtn">Export building updates</button>
+        </div>
+        <div class="toolbar">
+          <input id="mediaSearch" class="search" placeholder="Search buildings, neighborhoods, management…" />
+          <select id="mediaStatusFilter" class="select">
+            <option value="urgent">Urgent filming</option>
+            <option value="all">All buildings</option>
+            <option value="No coverage — film needed">No coverage — film needed</option>
+            <option value="Partial coverage — capture needed">Partial coverage — capture needed</option>
+            <option value="Leasing follow-up needed">Leasing follow-up needed</option>
+            <option value="Needs Review">Needs Review</option>
+            <option value="YouTube usable for MVP">YouTube usable for MVP</option>
+            <option value="Complete">Complete</option>
+          </select>
+        </div>
+        <div class="chip-row" id="mediaNeighborhoods"></div>
+        <div class="list" id="mediaList"></div>
+      </section>
+
+      <section class="panel" id="partnersPanel">
+        <div class="section-head">
+          <div>
+            <h3>Partner outreach</h3>
+            <p class="muted">Add local partner prospects, then export partner updates.</p>
+          </div>
+          <div class="actions compact-actions">
+            <button class="small-btn" id="exportPartnersCsvBtn">Export partners</button>
+            <button class="primary-btn" id="addPartnerBtn">Add partner</button>
+          </div>
+        </div>
+        <div class="toolbar">
+          <input id="partnerSearch" class="search" placeholder="Search partners, neighborhoods, categories…" />
+          <select id="partnerFilter" class="select">
+            <option value="tier1">Tier 1 to hit</option>
+            <option value="all">All partners</option>
+            <option value="YES">YES</option>
+            <option value="REVISIT">Revisit</option>
+            <option value="Pending">Not in / pending</option>
+            <option value="NO">NO</option>
+          </select>
+        </div>
+        <div class="yes-strip" id="partnerYesStrip"></div>
+        <div class="list" id="partnerList"></div>
+      </section>
+
+      <section class="panel" id="capturePanel">
+        <div class="section-head">
+          <div>
+            <h3>Captured units</h3>
+            <p class="muted">Unit-level log: unit, beds, floorplan, direction, notes.</p>
+          </div>
+          <button class="primary-btn" id="quickCaptureBtn">Add capture</button>
+        </div>
+        <div class="list" id="captureList"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="drawer" id="buildingDrawer" aria-hidden="true">
+    <div class="drawer-card large">
+      <button class="close" data-close="buildingDrawer">×</button>
+      <div id="buildingDetail"></div>
+    </div>
+  </div>
+
+  <div class="drawer" id="partnerDrawer" aria-hidden="true">
+    <div class="drawer-card">
+      <button class="close" data-close="partnerDrawer">×</button>
+      <div id="partnerDetail"></div>
+    </div>
+  </div>
+
+  <div class="drawer" id="partnerFormDrawer" aria-hidden="true">
+    <div class="drawer-card">
+      <button class="close" data-close="partnerFormDrawer">×</button>
+      <h2 id="partnerFormTitle">Add partner</h2>
+      <form id="partnerForm" class="form">
+        <input type="hidden" id="partnerFormId" />
+        <label>Business name<input id="partnerBusinessName" required /></label>
+        <label>Category<input id="partnerCategory" placeholder="Cafe / Bar / Fitness / Pet" /></label>
+        <label>Neighborhood<input id="partnerNeighborhood" /></label>
+        <label>Address<input id="partnerAddress" /></label>
+        <label>Phone<input id="partnerPhone" /></label>
+        <label>Tier<select id="partnerTier"><option>1</option><option>2</option><option>3</option></select></label>
+        <label>Score<input id="partnerScore" placeholder="1-10" /></label>
+        <label>Status<select id="partnerStatus"><option>Not Approached</option><option>Pending</option><option>REVISIT</option><option>YES</option><option>NO</option></select></label>
+        <label>Nearby buildings<input id="partnerNearbyBuildings" /></label>
+        <label>Notes<textarea id="partnerSeedNotes"></textarea></label>
+        <button class="primary-btn" type="submit">Save partner</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="drawer" id="buildingEditDrawer" aria-hidden="true">
+    <div class="drawer-card">
+      <button class="close" data-close="buildingEditDrawer">×</button>
+      <h2>Edit building info</h2>
+      <form id="buildingEditForm" class="form">
+        <input type="hidden" id="editBuildingKey" />
+        <label>Building name<input id="editBuildingName" required /></label>
+        <label>Neighborhood<input id="editBuildingNeighborhood" /></label>
+        <label>Management company<input id="editManagementCompany" /></label>
+        <label>Website<input id="editWebsite" /></label>
+        <label>Media status<select id="editMediaStatus"><option>No coverage — film needed</option><option>Partial coverage — capture needed</option><option>YouTube usable for MVP</option><option>Complete</option><option>Leasing follow-up needed</option><option>Needs Review</option></select></label>
+        <label>Floorplans on website<select id="editFloorplanVisibility"><option></option><option>All FP Shown</option><option>Only shows On Market FP</option><option>Unsure</option></select></label>
+        <label># of floorplans<input id="editFloorplanCount" inputmode="numeric" /></label>
+        <label>Media Strategy 2 raw<input id="editMediaStrategy2" /></label>
+        <label>Notes<textarea id="editBuildingNotes"></textarea></label>
+        <label class="checkbox-label"><input type="checkbox" id="editDnp" /> DNP</label>
+        <label class="checkbox-label"><input type="checkbox" id="editMuteAlerts" /> Muted alerts / suppress n8n</label>
+        <button class="primary-btn" type="submit">Save building</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="drawer" id="captureDrawer" aria-hidden="true">
+    <div class="drawer-card">
+      <button class="close" data-close="captureDrawer">×</button>
+      <h2 id="captureFormTitle">Add captured unit</h2>
+      <form id="captureForm" class="form">
+        <input type="hidden" id="captureId" />
+        <label>Building<select id="captureBuilding" required></select></label>
+        <label>Unit number<input id="captureUnit" placeholder="2407" required /></label>
+        <label>Bed count<input id="captureBeds" placeholder="1 bed / Studio / 2" /></label>
+        <label>Floorplan<input id="captureFloorplan" placeholder="A3" /></label>
+        <label>Direction<input id="captureDirection" placeholder="East / city view / courtyard" /></label>
+        <label>Notes<textarea id="captureNotes" placeholder="Good light, same stack as 2405, needs reshoot…"></textarea></label>
+        <button class="primary-btn" type="submit">Save capture</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="drawer" id="settingsDrawer" aria-hidden="true">
+    <div class="drawer-card">
+      <button class="close" data-close="settingsDrawer">×</button>
+      <h2>Settings & data</h2>
+      <div class="settings-block">
+        <h3>Google Sheets sync</h3>
+        <p class="muted">Paste the deployed Apps Script Web App URL to pull/push Buildings, Partners, Captures, and Daily Opportunities.</p>
+        <label>Sync endpoint<input id="syncEndpoint" placeholder="https://script.google.com/macros/s/.../exec" /></label>
+        <div class="actions compact-actions">
+          <button class="small-btn" id="saveSyncEndpointBtn">Save endpoint</button>
+          <button class="small-btn" id="pullSheetsBtn">Pull from Sheets</button>
+          <button class="small-btn" id="pushSheetsBtn">Push to Sheets</button>
+        </div>
+      </div>
+      <div class="settings-block">
+        <h3>Daily Capture Opportunities</h3>
+        <p class="muted">Import the CSV/JSON that n8n writes. Until then, Today is derived from the building master.</p>
+        <input type="file" id="dailyImport" accept=".json,.csv" />
+      </div>
+      <div class="settings-block">
+        <h3>Backup / restore</h3>
+        <button class="small-btn" id="exportJsonBtn">Export JSON backup</button>
+        <button class="small-btn" id="exportAllCsvBtn">Export all CSVs</button>
+        <input type="file" id="restoreJson" accept=".json" />
+      </div>
+      <div class="settings-block danger-zone">
+        <h3>Reset</h3>
+        <button class="danger-btn" id="resetBtn">Reset local data to seed</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="seed-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

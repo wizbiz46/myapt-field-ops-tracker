@@ -28,7 +28,7 @@ No backend and no video upload in V1.
 
 - Mobile-first static web app in `src/`
 - Google Sheets sync Apps Script in `apps-script/Code.gs`
-- GitHub Pages deployment workflow in `.github/workflows/pages.yml`
+- GitHub Pages-ready static site mirrored into `docs/`
 - n8n workflow export in `n8n/`
 
 ## Google Sheets sync setup
@@ -43,4 +43,4 @@ Do not store credentials/passwords in this tracker sheet.
 
 ## GitHub Pages setup
 
-After pushing to GitHub, enable Pages with source: GitHub Actions. The included workflow deploys the `src/` folder on every push to `main`.
+After pushing to GitHub, enable Pages with source: `Deploy from a branch`, branch `main`, folder `/docs`. The app source remains in `src/`; `docs/` is the GitHub Pages serving copy.
