@@ -140,9 +140,15 @@ function ensureHeader(sheet, cfg) {
     formatHeader(sheet, cfg.columns.length);
     return;
   }
-  const firstCell = sheet.getRange(1, 1).getValue();
-  if (String(firstCell) !== cfg.columns[0]) {
+  const width = Math.max(sheet.getLastColumn(), cfg.columns.length);
+  const headers = sheet.getRange(1, 1, 1, width).getValues()[0].map(String);
+  const firstCell = headers[0] || '';
+  if (firstCell && firstCell !== cfg.columns[0]) {
     sheet.insertRowBefore(1);
+  }
+  const current = sheet.getRange(1, 1, 1, cfg.columns.length).getValues()[0].map(String);
+  const needsUpdate = cfg.columns.some((col, i) => current[i] !== col);
+  if (needsUpdate || firstCell !== cfg.columns[0]) {
     sheet.getRange(1, 1, 1, cfg.columns.length).setValues([cfg.columns]);
     formatHeader(sheet, cfg.columns.length);
   }

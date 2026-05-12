@@ -2,7 +2,7 @@ const STORE_KEY = 'myapt_field_ops_v1';
 const DAILY_KEY = 'myapt_daily_capture_v1';
 const SYNC_ENDPOINT_KEY = 'myapt_sync_endpoint_v1';
 const PARTNER_QUEUE_KEY = 'myapt_partner_queue_today_v1';
-const DEFAULT_SYNC_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz91SkhM-rYSR48XHjEpzp6bw1gWveVMtPM5Y1vLZw2t9tqzzL5nFVPybjZVwJ0lDEDOg/exec';
+const DEFAULT_SYNC_ENDPOINT = 'https://script.google.com/macros/s/AKfycby0WreQ1kvsm2dxG8RBlFIly2r5_hsXgTc6AowaXC_XWySuo2s5Jh1DTvi6m-38UcaY/exec';
 
 const statusColors = {
   'No coverage — film needed': 'red',

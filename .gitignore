@@ -2,3 +2,7 @@
 .env
 .env.*
 node_modules/
+
+# local Apps Script clasp work dirs
+.gas-deploy/
+.gas-standalone/
