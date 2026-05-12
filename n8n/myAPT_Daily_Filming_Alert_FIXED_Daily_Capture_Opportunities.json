@@ -188,7 +188,7 @@
           "mode": "name",
           "cachedResultName": "Daily Capture Opportunities"
         },
-        "range": "A:AD"
+        "range": "A2:AD"
       },
       "id": "fixed-clear-daily-capture-opportunities",
       "name": "Clear Daily Capture Opportunities",
