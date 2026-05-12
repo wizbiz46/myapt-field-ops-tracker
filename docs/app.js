@@ -236,12 +236,12 @@ function openPartner(id){
   $('partnerDetail').innerHTML = `<h2>${esc(p['Business Name'])}</h2><p class="muted">${esc([p.Category,p.Neighborhood,`Tier ${p.Tier}`,`Score ${p.Score}`].join(' · '))}</p><div class="badges">${badgeHtml(p.Status,p.Status==='YES'?'green':p.Status==='NO'?'red':p.Status==='REVISIT'?'gold':'')}${isPartnerQueued(p.id)?badgeHtml('Queued today','blue'):''}</div>
   <div class="actions"><button class="primary-btn" data-queue-partner="${p.id}">${isPartnerQueued(p.id)?'Remove from queue':'Queue today'}</button><button class="primary-btn" data-edit-partner="${p.id}">Edit partner</button>${['YES','NO','REVISIT','Pending','Not Approached'].map(s=>`<button class="small-btn" data-partner-status="${s}">${s}</button>`).join('')}</div>
   <div class="detail-grid">${detail('Nearby buildings',p['Nearby Buildings']||'')}${detail('Hours',p.Hours||'')}${detail('Phone',p.Phone||'')}${detail('Notes',p.Notes||'')}</div>
-  <div class="form"><label>Spoke to<input id="partnerSpoke" value="${esc(p['Spoke To']||'')}" /></label><label>Field notes<textarea id="partnerNotes">${esc(p['Field Notes']||'')}</textarea></label><button class="primary-btn" id="savePartnerBtn">Save partner</button></div>`;
+  <div class="form"><label>Spoke to<input id="partnerSpoke" value="${esc(p['Spoke To']||'')}" /></label><label>Field notes<textarea id="partnerNotes">${esc(p['Field Notes']||'')}</textarea></label><h3>Owner / next step</h3><label>Owner name<input id="partnerOwnerNameDetail" value="${esc(p['Owner Name']||'')}" /></label><label>Owner contact<input id="partnerOwnerContactDetail" value="${esc(p['Owner Contact']||'')}" /></label><label>Next action<select id="partnerNextActionDetail">${['','Reach Out','Come back','Placement'].map(v=>`<option ${v===(p['Next Action']||'')?'selected':''}>${v}</option>`).join('')}</select></label><button class="primary-btn" id="savePartnerBtn">Save partner</button></div>`;
   openDrawer('partnerDrawer');
   document.querySelector('[data-edit-partner]')?.addEventListener('click', ()=>openPartnerForm(id));
   bindPartnerQueueButtons($('partnerDetail'));
   document.querySelectorAll('[data-partner-status]').forEach(b=>b.onclick=()=>{p.Status=b.dataset.partnerStatus;if(!p['Pitch Date']&&p.Status!=='Not Approached')p['Pitch Date']=new Date().toLocaleDateString();save();renderPartners();openPartner(id);});
-  $('savePartnerBtn').onclick=()=>{p['Spoke To']=$('partnerSpoke').value;p['Field Notes']=$('partnerNotes').value;save();toast('Partner saved');renderPartners();};
+  $('savePartnerBtn').onclick=()=>{p['Spoke To']=$('partnerSpoke').value;p['Field Notes']=$('partnerNotes').value;p['Owner Name']=$('partnerOwnerNameDetail').value;p['Owner Contact']=$('partnerOwnerContactDetail').value;p['Next Action']=$('partnerNextActionDetail').value;save();toast('Partner saved');renderPartners();};
 }
 
 function fillBuildingSelect(selected=''){
@@ -274,6 +274,9 @@ function openPartnerForm(id=null){
   $('partnerStatus').value = p?.Status || 'Not Approached';
   $('partnerNearbyBuildings').value = p?.['Nearby Buildings'] || '';
   $('partnerSeedNotes').value = p?.Notes || '';
+  $('partnerOwnerName').value = p?.['Owner Name'] || '';
+  $('partnerOwnerContact').value = p?.['Owner Contact'] || '';
+  $('partnerNextAction').value = p?.['Next Action'] || '';
   openDrawer('partnerFormDrawer');
 }
 
@@ -281,7 +284,7 @@ function savePartnerForm(){
   const rawId = $('partnerFormId').value;
   const id = rawId ? Number(rawId) : nextPartnerId();
   const existing = state.partners.find(p=>p.id===id);
-  const rec = existing || { id, 'Spoke To':'', 'Pitch Date':'', Hours:'', 'Field Notes':'' };
+  const rec = existing || { id, 'Spoke To':'', 'Pitch Date':'', Hours:'', 'Field Notes':'', 'Owner Name':'', 'Owner Contact':'', 'Next Action':'' };
   Object.assign(rec, {
     id,
     Status: $('partnerStatus').value,
@@ -294,6 +297,9 @@ function savePartnerForm(){
     Phone: $('partnerPhone').value.trim(),
     'Nearby Buildings': $('partnerNearbyBuildings').value.trim(),
     Notes: $('partnerSeedNotes').value.trim(),
+    'Owner Name': $('partnerOwnerName').value.trim(),
+    'Owner Contact': $('partnerOwnerContact').value.trim(),
+    'Next Action': $('partnerNextAction').value,
   });
   if(!existing) state.partners.push(rec);
   save(); closeDrawer('partnerFormDrawer'); toast('Partner saved'); renderPartners();
@@ -361,7 +367,7 @@ function exportBuildingsCsv(){
   exportCsv(`myapt-building-updates-${new Date().toISOString().slice(0,10)}.csv`, state.buildings, cols);
 }
 function exportPartnersCsv(){
-  const cols=['id','Status','Tier','Score','Business Name','Category','Neighborhood','Address','Phone','Hours','Spoke To','Pitch Date','Nearby Buildings','Notes','Field Notes'];
+  const cols=['id','Status','Tier','Score','Business Name','Category','Neighborhood','Address','Phone','Hours','Spoke To','Pitch Date','Nearby Buildings','Notes','Field Notes','Owner Name','Owner Contact','Next Action'];
   exportCsv(`myapt-partner-updates-${new Date().toISOString().slice(0,10)}.csv`, state.partners, cols);
 }
 function exportCapturesCsv(){

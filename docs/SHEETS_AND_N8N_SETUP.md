@@ -7,7 +7,7 @@ Use `myAPT_Field_Ops_Tracker_Sheet_Template.xlsx` to create/seed the tracker she
 Tabs:
 
 - `Buildings` — building/media master
-- `Partners` — local partner outreach CRM
+- `Partners` — local partner outreach CRM, including Owner Name, Owner Contact, and Next Action
 - `Captures` — unit-level capture log from the app
 - `Daily Capture Opportunities` — current snapshot written by n8n
 

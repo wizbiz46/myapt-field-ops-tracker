@@ -25,7 +25,7 @@ const SHEETS = {
   partners: {
     name: 'Partners',
     key: 'id',
-    columns: ['id','Status','Tier','Score','Business Name','Category','Neighborhood','Address','Phone','Hours','Spoke To','Pitch Date','Nearby Buildings','Notes','Field Notes','Last Updated']
+    columns: ['id','Status','Tier','Score','Business Name','Category','Neighborhood','Address','Phone','Hours','Spoke To','Pitch Date','Nearby Buildings','Notes','Field Notes','Owner Name','Owner Contact','Next Action','Last Updated']
   },
   captures: {
     name: 'Captures',
