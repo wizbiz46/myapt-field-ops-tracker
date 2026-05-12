@@ -1,6 +1,7 @@
 const STORE_KEY = 'myapt_field_ops_v1';
 const DAILY_KEY = 'myapt_daily_capture_v1';
 const SYNC_ENDPOINT_KEY = 'myapt_sync_endpoint_v1';
+const DEFAULT_SYNC_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz91SkhM-rYSR48XHjEpzp6bw1gWveVMtPM5Y1vLZw2t9tqzzL5nFVPybjZVwJ0lDEDOg/exec';
 
 const statusColors = {
   'No coverage — film needed': 'red',
@@ -309,7 +310,7 @@ function exportCapturesCsv(){
   exportCsv(`myapt-captured-units-${new Date().toISOString().slice(0,10)}.csv`, rows, ['id','building_key','building_name','unit_number','bed_count','floorplan_name','direction','notes','created_at','updated_at']);
 }
 function exportAllCsvs(){ exportBuildingsCsv(); setTimeout(exportPartnersCsv,150); setTimeout(exportCapturesCsv,300); }
-function getSyncEndpoint(){ return (localStorage.getItem(SYNC_ENDPOINT_KEY) || '').trim(); }
+function getSyncEndpoint(){ return (localStorage.getItem(SYNC_ENDPOINT_KEY) || DEFAULT_SYNC_ENDPOINT).trim(); }
 function saveSyncEndpoint(){ localStorage.setItem(SYNC_ENDPOINT_KEY, $('syncEndpoint').value.trim()); toast('Sync endpoint saved'); }
 async function pullFromSheets(){
   const url = getSyncEndpoint();
