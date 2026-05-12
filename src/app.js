@@ -67,6 +67,7 @@ function badgesFor(b){
 function normKey(k){ return String(k || '').trim().toUpperCase(); }
 function findBuilding(key){ return state.buildings.find(x=>normKey(x.building_key)===normKey(key)); }
 function findDaily(key){ return (state.daily || []).find(x=>normKey(x.building_key)===normKey(key)); }
+function findDailyForBuilding(b){ return findDaily(b?.building_key) || (state.daily || []).find(x=>String(x.building_name||'').toLowerCase()===String(b?.building_name||'').toLowerCase()); }
 function parseUnitsByFloorplan(b){
   const raw = b.units_by_floorplan || b.units_by_floorplan_json;
   if(!raw) return {};
@@ -195,8 +196,18 @@ function renderCaptures(){
 
 function openBuilding(key){
   const master=findBuilding(key);
-  const daily=findDaily(key);
+  const daily=findDailyForBuilding(master || { building_key:key });
   const b={...(master || {}), ...(daily || {})}; if(!b.building_key) return;
+  if(!(b.units_by_floorplan_json || b.units_by_floorplan)){
+    refreshFromSheetsQuiet().then(ok=>{
+      const freshMaster=findBuilding(key);
+      const freshDaily=findDailyForBuilding(freshMaster || b);
+      if(ok && freshDaily && (freshDaily.units_by_floorplan_json || freshDaily.units_by_floorplan)){
+        toast('Loaded latest floorplans from Sheets');
+        openBuilding(freshDaily.building_key || key);
+      }
+    }).catch(()=>{});
+  }
   const caps=state.captures.filter(c=>normKey(c.building_key)===normKey(key));
   const showLeasing = /^Only shows On Market FP/i.test(b.floorplan_visibility || '');
   const leasingHtml = showLeasing ? `
@@ -413,6 +424,21 @@ async function pushToSheets(){
   const payload = await res.json();
   if(!payload.ok) throw new Error(payload.error || 'Push failed');
   toast('Pushed data to Sheets');
+}
+async function refreshFromSheetsQuiet(){
+  const url = getSyncEndpoint();
+  if(!url) return false;
+  const res = await fetch(url, { method:'GET' });
+  const payload = await res.json();
+  if(!payload.ok) return false;
+  const data = payload.data || {};
+  if(data.buildings?.length) state.buildings = data.buildings;
+  if(data.partners?.length) state.partners = data.partners;
+  state.captures = data.captures || state.captures || [];
+  state.daily = data.daily || [];
+  localStorage.setItem(DAILY_KEY, JSON.stringify(state.daily));
+  save();
+  return true;
 }
 function parseCsv(text){
   const rows=[]; let cur='', row=[], q=false;
