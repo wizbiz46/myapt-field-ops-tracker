@@ -151,7 +151,18 @@ function renderPartnerQueue(){
 }
 function bindPartnerQueueButtons(scope=document){ scope.querySelectorAll('[data-queue-partner]').forEach(btn=>btn.onclick=e=>{ e.stopPropagation(); togglePartnerQueue(btn.dataset.queuePartner); }); }
 
+function ensurePartnerQueueDom(){
+  if($('partnerQueue') && $('clearPartnerQueueBtn')) return;
+  const list = $('partnerList');
+  if(!list) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<div class="section-head"><div><h3>Today’s partner queue</h3><p class="muted">Businesses you plan to approach today.</p></div><button class="small-btn" id="clearPartnerQueueBtn">Clear queue</button></div><div class="list" id="partnerQueue"></div><div class="section-head"><h3>Partner list</h3></div>`;
+  list.parentNode.insertBefore(wrap, list);
+  $('clearPartnerQueueBtn').onclick=clearPartnerQueue;
+}
+
 function renderPartners(){
+  ensurePartnerQueueDom();
   renderPartnerQueue();
   const q=$('partnerSearch').value.trim().toLowerCase(); const f=$('partnerFilter').value;
   const yes=state.partners.filter(p=>p.Status==='YES').map(p=>p['Business Name']);
@@ -401,7 +412,7 @@ function init(){
   $('pullSheetsBtn').onclick=()=>pullFromSheets().catch(err=>toast(err.message));
   $('pushSheetsBtn').onclick=()=>pushToSheets().catch(err=>toast(err.message));
   $('quickCaptureBtn').onclick=()=>openCaptureForm();
-  $('clearPartnerQueueBtn').onclick=clearPartnerQueue;
+  $('clearPartnerQueueBtn') && ($('clearPartnerQueueBtn').onclick=clearPartnerQueue);
   $('addPartnerBtn').onclick=()=>openPartnerForm();
   $('exportStateBtn').onclick=exportBackup; $('exportJsonBtn').onclick=exportBackup;
   $('exportBuildingsCsvBtn').onclick=exportBuildingsCsv;
