@@ -1,6 +1,7 @@
 const STORE_KEY = 'myapt_field_ops_v1';
 const DAILY_KEY = 'myapt_daily_capture_v1';
 const SYNC_ENDPOINT_KEY = 'myapt_sync_endpoint_v1';
+const PARTNER_QUEUE_KEY = 'myapt_partner_queue_today_v1';
 const DEFAULT_SYNC_ENDPOINT = 'https://script.google.com/macros/s/AKfycbz91SkhM-rYSR48XHjEpzp6bw1gWveVMtPM5Y1vLZw2t9tqzzL5nFVPybjZVwJ0lDEDOg/exec';
 
 const statusColors = {
@@ -125,7 +126,33 @@ function buildingCard(b){
 }
 function wireBuildingCards(id){ document.querySelectorAll(`#${id} [data-building]`).forEach(el=>el.onclick=()=>openBuilding(el.dataset.building)); }
 
+function getPartnerQueue(){
+  try { return JSON.parse(localStorage.getItem(PARTNER_QUEUE_KEY) || '[]').map(String); } catch(e) { return []; }
+}
+function savePartnerQueue(ids){ localStorage.setItem(PARTNER_QUEUE_KEY, JSON.stringify([...new Set(ids.map(String))])); }
+function isPartnerQueued(id){ return getPartnerQueue().includes(String(id)); }
+function togglePartnerQueue(id){
+  const sid = String(id);
+  const q = getPartnerQueue();
+  const next = q.includes(sid) ? q.filter(x=>x!==sid) : [...q, sid];
+  savePartnerQueue(next); renderPartners(); toast(q.includes(sid) ? 'Removed from today’s queue' : 'Added to today’s queue');
+}
+function clearPartnerQueue(){ if(confirm('Clear today’s partner queue?')){ savePartnerQueue([]); renderPartners(); toast('Queue cleared'); } }
+function renderPartnerQueue(){
+  const q = getPartnerQueue();
+  const queued = q.map(id=>state.partners.find(p=>String(p.id)===id)).filter(Boolean);
+  $('partnerQueue').innerHTML = queued.length ? queued.map(p=>`
+    <article class="card queued-partner" data-partner="${esc(p.id)}">
+      <div><div class="card-title">${esc(p['Business Name'])}</div><div class="card-sub">${esc([p.Category,p.Neighborhood,p.Address].filter(Boolean).join(' · '))}</div><div class="badges">${badgeHtml(p.Status,p.Status==='YES'?'green':p.Status==='NO'?'red':p.Status==='REVISIT'?'gold':'')}${badgeHtml('Queued today','blue')}</div></div>
+      <button class="small-btn" data-queue-partner="${esc(p.id)}">Remove</button>
+    </article>`).join('') : `<div class="empty">No businesses queued yet. Tap “Queue today” on partner cards below.</div>`;
+  document.querySelectorAll('#partnerQueue [data-partner]').forEach(el=>el.onclick=()=>openPartner(Number(el.dataset.partner)));
+  document.querySelectorAll('#partnerQueue [data-queue-partner]').forEach(btn=>btn.onclick=e=>{ e.stopPropagation(); togglePartnerQueue(btn.dataset.queuePartner); });
+}
+function bindPartnerQueueButtons(scope=document){ scope.querySelectorAll('[data-queue-partner]').forEach(btn=>btn.onclick=e=>{ e.stopPropagation(); togglePartnerQueue(btn.dataset.queuePartner); }); }
+
 function renderPartners(){
+  renderPartnerQueue();
   const q=$('partnerSearch').value.trim().toLowerCase(); const f=$('partnerFilter').value;
   const yes=state.partners.filter(p=>p.Status==='YES').map(p=>p['Business Name']);
   $('partnerYesStrip').style.display = yes.length?'block':'none';
@@ -138,10 +165,12 @@ function renderPartners(){
     return true;
   }).sort((a,b)=>(Number(a.Tier)-Number(b.Tier)) || (Number(b.Score)-Number(a.Score)));
   $('partnerList').innerHTML = list.length ? list.map(partnerCard).join('') : `<div class="empty">No partners match.</div>`;
-  document.querySelectorAll('[data-partner]').forEach(el=>el.onclick=()=>openPartner(Number(el.dataset.partner)));
+  document.querySelectorAll('#partnerList [data-partner]').forEach(el=>el.onclick=()=>openPartner(Number(el.dataset.partner)));
+  bindPartnerQueueButtons($('partnerList'));
 }
 function partnerCard(p){
-  return `<article class="card" data-partner="${p.id}"><div><div class="card-title">${esc(p['Business Name'])}</div><div class="card-sub">${esc([p.Category,p.Neighborhood,`Score ${p.Score}`].filter(Boolean).join(' · '))}</div><div class="badges">${badgeHtml(p.Status,p.Status==='YES'?'green':p.Status==='NO'?'red':p.Status==='REVISIT'?'gold':'')}</div></div><div class="status-pill">Tier ${esc(p.Tier)}</div></article>`;
+  const queued = isPartnerQueued(p.id);
+  return `<article class="card" data-partner="${p.id}"><div><div class="card-title">${esc(p['Business Name'])}</div><div class="card-sub">${esc([p.Category,p.Neighborhood,`Score ${p.Score}`].filter(Boolean).join(' · '))}</div><div class="badges">${badgeHtml(p.Status,p.Status==='YES'?'green':p.Status==='NO'?'red':p.Status==='REVISIT'?'gold':'')}${queued?badgeHtml('Queued today','blue'):''}</div></div><div class="status-pill">Tier ${esc(p.Tier)}<br><button class="small-btn" data-queue-partner="${esc(p.id)}">${queued?'Unqueue':'Queue today'}</button></div></article>`;
 }
 
 function renderCaptures(){
@@ -193,12 +222,13 @@ function linkify(v){ const s=esc(v); return s.replace(/(https?:\/\/[^\s]+)/g,'<a
 
 function openPartner(id){
   const p=state.partners.find(x=>x.id===id); if(!p) return;
-  $('partnerDetail').innerHTML = `<h2>${esc(p['Business Name'])}</h2><p class="muted">${esc([p.Category,p.Neighborhood,`Tier ${p.Tier}`,`Score ${p.Score}`].join(' · '))}</p><div class="badges">${badgeHtml(p.Status,p.Status==='YES'?'green':p.Status==='NO'?'red':p.Status==='REVISIT'?'gold':'')}</div>
-  <div class="actions"><button class="primary-btn" data-edit-partner="${p.id}">Edit partner</button>${['YES','NO','REVISIT','Pending','Not Approached'].map(s=>`<button class="small-btn" data-partner-status="${s}">${s}</button>`).join('')}</div>
+  $('partnerDetail').innerHTML = `<h2>${esc(p['Business Name'])}</h2><p class="muted">${esc([p.Category,p.Neighborhood,`Tier ${p.Tier}`,`Score ${p.Score}`].join(' · '))}</p><div class="badges">${badgeHtml(p.Status,p.Status==='YES'?'green':p.Status==='NO'?'red':p.Status==='REVISIT'?'gold':'')}${isPartnerQueued(p.id)?badgeHtml('Queued today','blue'):''}</div>
+  <div class="actions"><button class="primary-btn" data-queue-partner="${p.id}">${isPartnerQueued(p.id)?'Remove from queue':'Queue today'}</button><button class="primary-btn" data-edit-partner="${p.id}">Edit partner</button>${['YES','NO','REVISIT','Pending','Not Approached'].map(s=>`<button class="small-btn" data-partner-status="${s}">${s}</button>`).join('')}</div>
   <div class="detail-grid">${detail('Nearby buildings',p['Nearby Buildings']||'')}${detail('Hours',p.Hours||'')}${detail('Phone',p.Phone||'')}${detail('Notes',p.Notes||'')}</div>
   <div class="form"><label>Spoke to<input id="partnerSpoke" value="${esc(p['Spoke To']||'')}" /></label><label>Field notes<textarea id="partnerNotes">${esc(p['Field Notes']||'')}</textarea></label><button class="primary-btn" id="savePartnerBtn">Save partner</button></div>`;
   openDrawer('partnerDrawer');
   document.querySelector('[data-edit-partner]')?.addEventListener('click', ()=>openPartnerForm(id));
+  bindPartnerQueueButtons($('partnerDetail'));
   document.querySelectorAll('[data-partner-status]').forEach(b=>b.onclick=()=>{p.Status=b.dataset.partnerStatus;if(!p['Pitch Date']&&p.Status!=='Not Approached')p['Pitch Date']=new Date().toLocaleDateString();save();renderPartners();openPartner(id);});
   $('savePartnerBtn').onclick=()=>{p['Spoke To']=$('partnerSpoke').value;p['Field Notes']=$('partnerNotes').value;save();toast('Partner saved');renderPartners();};
 }
@@ -371,6 +401,7 @@ function init(){
   $('pullSheetsBtn').onclick=()=>pullFromSheets().catch(err=>toast(err.message));
   $('pushSheetsBtn').onclick=()=>pushToSheets().catch(err=>toast(err.message));
   $('quickCaptureBtn').onclick=()=>openCaptureForm();
+  $('clearPartnerQueueBtn').onclick=clearPartnerQueue;
   $('addPartnerBtn').onclick=()=>openPartnerForm();
   $('exportStateBtn').onclick=exportBackup; $('exportJsonBtn').onclick=exportBackup;
   $('exportBuildingsCsvBtn').onclick=exportBuildingsCsv;
