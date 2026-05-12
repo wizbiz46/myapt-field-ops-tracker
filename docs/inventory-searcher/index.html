@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#fffaf2" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="myAPT Inventory" />
+  <title>myAPT Inventory Searcher</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">myAPT</div>
+        <h1>Inventory Searcher</h1>
+      </div>
+      <button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙</button>
+    </header>
+
+    <main>
+      <section class="panel active">
+        <div class="hero-card">
+          <div>
+            <div class="eyebrow">Live inventory</div>
+            <h2 id="heroTitle">Find units fast</h2>
+            <p id="heroSub">Filter the Inventory LIVE sheet by beds, baths, neighborhood, price, and move date.</p>
+          </div>
+          <button class="primary-btn" id="syncBtn">Refresh</button>
+        </div>
+
+        <div class="stats-grid" id="statsGrid"></div>
+
+        <div class="filter-card">
+          <div class="toolbar inventory-toolbar">
+            <input id="searchInput" class="search" placeholder="Search property, unit, neighborhood…" />
+            <select id="sortSelect" class="select">
+              <option value="priceAsc">Lowest price</option>
+              <option value="dateAsc">Soonest move date</option>
+              <option value="bedsDesc">Most beds</option>
+              <option value="sqftDesc">Largest sqft</option>
+            </select>
+          </div>
+
+          <div class="filter-grid">
+            <label>Bed count<select id="bedsFilter"><option value="any">Any beds</option></select></label>
+            <label>Bath count<select id="bathsFilter"><option value="any">Any baths</option></select></label>
+            <label>Neighborhood<select id="neighborhoodFilter"><option value="any">Any neighborhood</option></select></label>
+            <label>Move date<input id="moveDateFilter" type="date" /></label>
+            <label>Min price<input id="minPriceFilter" type="number" inputmode="numeric" placeholder="$ min" /></label>
+            <label>Max price<input id="maxPriceFilter" type="number" inputmode="numeric" placeholder="$ max" /></label>
+          </div>
+
+          <div class="actions compact-actions filter-actions">
+            <button class="small-btn" id="clearFiltersBtn">Clear filters</button>
+            <button class="small-btn" id="exportCsvBtn">Export results CSV</button>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <div>
+            <h3 id="resultsTitle">Available units</h3>
+            <p class="muted" id="resultsSub">Loading sample data until the sync endpoint is connected.</p>
+          </div>
+        </div>
+        <div class="list" id="inventoryList"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="drawer" id="unitDrawer" aria-hidden="true">
+    <div class="drawer-card large">
+      <button class="close" data-close="unitDrawer">×</button>
+      <div id="unitDetail"></div>
+    </div>
+  </div>
+
+  <div class="drawer" id="settingsDrawer" aria-hidden="true">
+    <div class="drawer-card">
+      <button class="close" data-close="settingsDrawer">×</button>
+      <h2>Settings</h2>
+      <div class="settings-block">
+        <label>Google Apps Script inventory endpoint<input id="endpointInput" placeholder="https://script.google.com/macros/s/.../exec" /></label>
+        <p class="muted">Deploy the included Apps Script as a Web App, then paste the URL here.</p>
+      </div>
+      <div class="actions">
+        <button class="primary-btn" id="saveEndpointBtn">Save endpoint</button>
+        <button class="small-btn" id="loadSampleBtn">Load sample data</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="seed-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
