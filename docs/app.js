@@ -208,7 +208,7 @@ function openBuilding(key){
     <button class="primary-btn" id="saveLeasingBtn">Save leasing follow-up</button>
   </div>` : '';
   $('buildingDetail').innerHTML = `<h2>${esc(b.building_name)}</h2><p class="muted">${esc([b.neighborhood,b.management_company,b.status].filter(Boolean).join(' · '))}</p><div class="badges">${statusBadge(b.media_status)}${badgesFor(b).map(x=>badgeHtml(x, x==='DNP'?'red':x==='Tour24'?'blue':'')).join('')}</div>
-  <div class="actions"><button class="primary-btn" data-add-capture-for="${esc(key)}">Add captured unit</button><button class="small-btn" data-edit-building="${esc(key)}">Edit building info</button>${b.website?`<a class="small-btn" href="${esc(b.website)}" target="_blank" rel="noopener">Website</a>`:''}</div>
+  <div class="actions"><button class="primary-btn" data-add-capture-for="${esc(key)}">Add captured unit</button><button class="small-btn" data-edit-building="${esc(key)}">Edit building info</button>${b.website?`<a class="small-btn" href="${esc(b.website)}" target="_blank" rel="noopener">Website</a>`:''}${b.units_by_floorplan_json || b.units_by_floorplan ? `<button class="small-btn" id="jumpFloorplansBtn">Jump to FPs</button>` : ''}</div>
   <div class="detail-grid two-col">
     ${detail('Floorplans on website', b.floorplan_visibility || 'Unknown')}
     ${detail('# of floorplans', b.floorplan_count_raw || 'Unknown')}
@@ -218,12 +218,13 @@ function openBuilding(key){
     ${detail('Notes', b.notes || 'None')}
     ${b.distinct_unfilmed_floorplans ? detail('Daily opportunity', `${b.distinct_unfilmed_floorplans} unfilmed floorplans · ${b.total_available_units || 0} available units · threshold ${b.threshold_required || ''}`) : ''}
   </div>
-  ${b.units_by_floorplan_json || b.units_by_floorplan ? `<h3 style="margin-top:18px">Available floorplans + units to capture</h3><div class="list">${floorplanOpportunitiesHtml(b)}</div>` : ''}
+  ${b.units_by_floorplan_json || b.units_by_floorplan ? `<h3 id="availableFloorplans" style="margin-top:18px">Available floorplans + units to capture</h3><div class="list">${floorplanOpportunitiesHtml(b)}</div>` : ''}
   ${leasingHtml}
   <h3 style="margin-top:18px">Captured units (${caps.length})</h3><div class="list">${caps.length?caps.map(c=>`<div class="detail-row"><b>Unit ${esc(c.unit_number)}</b><div class="muted">${esc([c.bed_count,c.floorplan_name,c.direction].filter(Boolean).join(' · '))}</div><div>${esc(c.notes||'')}</div></div>`).join(''):'<div class="empty">No captured units for this building.</div>'}</div>`;
   openDrawer('buildingDrawer');
   document.querySelector('[data-add-capture-for]')?.addEventListener('click', e=>openCaptureForm(null, e.target.dataset.addCaptureFor));
   document.querySelector('[data-edit-building]')?.addEventListener('click', e=> master ? openBuildingEdit(e.target.dataset.editBuilding) : toast('Pull/update building master first'));
+  $('jumpFloorplansBtn')?.addEventListener('click', ()=> $('availableFloorplans')?.scrollIntoView({behavior:'smooth', block:'start'}));
   if(showLeasing){
     $('saveLeasingBtn').onclick=()=>{ b.leasing_outreach_status=$('leasingStatus').value; b.leasing_notes=$('leasingNotes').value; b.floorplan_docs_link=$('floorplanDocsLink').value; save(); toast('Leasing follow-up saved'); render(); };
   }
@@ -343,8 +344,19 @@ function saveBuildingEdit(){
 }
 
 function countBy(arr,key){ return arr.reduce((m,x)=>{m[x[key]||'']=(m[x[key]||'']||0)+1; return m;},{}); }
-function openDrawer(id){ $(id).classList.add('open'); $(id).setAttribute('aria-hidden','false'); }
-function closeDrawer(id){ $(id).classList.remove('open'); $(id).setAttribute('aria-hidden','true'); }
+function openDrawer(id){
+  const drawer = $(id);
+  drawer.classList.add('open');
+  drawer.setAttribute('aria-hidden','false');
+  document.body.classList.add('drawer-open');
+  const card = drawer.querySelector('.drawer-card');
+  if(card) card.scrollTop = 0;
+}
+function closeDrawer(id){
+  $(id).classList.remove('open');
+  $(id).setAttribute('aria-hidden','true');
+  if(!document.querySelector('.drawer.open')) document.body.classList.remove('drawer-open');
+}
 
 function exportBackup(){
   const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}); const a=document.createElement('a');
