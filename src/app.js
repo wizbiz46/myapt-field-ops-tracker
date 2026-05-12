@@ -252,8 +252,8 @@ function openPartner(id){
   openDrawer('partnerDrawer');
   document.querySelector('[data-edit-partner]')?.addEventListener('click', ()=>openPartnerForm(id));
   bindPartnerQueueButtons($('partnerDetail'));
-  document.querySelectorAll('[data-partner-status]').forEach(b=>b.onclick=()=>{p.Status=b.dataset.partnerStatus;if(!p['Pitch Date']&&p.Status!=='Not Approached')p['Pitch Date']=new Date().toLocaleDateString();save();renderPartners();openPartner(id);});
-  $('savePartnerBtn').onclick=()=>{p['Spoke To']=$('partnerSpoke').value;p['Field Notes']=$('partnerNotes').value;p['Owner Name']=$('partnerOwnerNameDetail').value;p['Owner Contact']=$('partnerOwnerContactDetail').value;p['Next Action']=$('partnerNextActionDetail').value;save();toast('Partner saved');renderPartners();};
+  document.querySelectorAll('[data-partner-status]').forEach(b=>b.onclick=()=>{p.Status=b.dataset.partnerStatus;if(!p['Pitch Date']&&p.Status!=='Not Approached')p['Pitch Date']=new Date().toLocaleDateString();p.updated_at=new Date().toISOString();save();renderPartners();openPartner(id);syncRecordSoon('partners', p, 'Partner status saved');});
+  $('savePartnerBtn').onclick=()=>{p['Spoke To']=$('partnerSpoke').value;p['Field Notes']=$('partnerNotes').value;p['Owner Name']=$('partnerOwnerNameDetail').value;p['Owner Contact']=$('partnerOwnerContactDetail').value;p['Next Action']=$('partnerNextActionDetail').value;p.updated_at=new Date().toISOString();save();renderPartners();syncRecordSoon('partners', p, 'Partner saved');};
 }
 
 function fillBuildingSelect(selected=''){
@@ -313,8 +313,9 @@ function savePartnerForm(){
     'Owner Contact': $('partnerOwnerContact').value.trim(),
     'Next Action': $('partnerNextAction').value,
   });
+  rec.updated_at = new Date().toISOString();
   if(!existing) state.partners.push(rec);
-  save(); closeDrawer('partnerFormDrawer'); toast('Partner saved'); renderPartners();
+  save(); closeDrawer('partnerFormDrawer'); renderPartners(); syncRecordSoon('partners', rec, 'Partner saved');
 }
 
 function nextPartnerId(){ return Math.max(0, ...state.partners.map(p=>Number(p.id)||0)) + 1; }
@@ -351,7 +352,8 @@ function saveBuildingEdit(){
   b.dnp = $('editDnp').checked;
   b.mute_alerts = $('editMuteAlerts').checked;
   b.badges = badgesFor(b).filter(x=>!['DNP','Muted alerts'].includes(x));
-  save(); closeDrawer('buildingEditDrawer'); toast('Building saved'); render(); openBuilding(b.building_key);
+  b.updated_at = new Date().toISOString();
+  save(); closeDrawer('buildingEditDrawer'); render(); openBuilding(b.building_key); syncRecordSoon('buildings', b, 'Building saved');
 }
 
 function countBy(arr,key){ return arr.reduce((m,x)=>{m[x[key]||'']=(m[x[key]||'']||0)+1; return m;},{}); }
@@ -403,6 +405,32 @@ function exportCapturesCsv(){
 function exportAllCsvs(){ exportBuildingsCsv(); setTimeout(exportPartnersCsv,150); setTimeout(exportCapturesCsv,300); }
 function getSyncEndpoint(){ return (localStorage.getItem(SYNC_ENDPOINT_KEY) || DEFAULT_SYNC_ENDPOINT).trim(); }
 function saveSyncEndpoint(){ localStorage.setItem(SYNC_ENDPOINT_KEY, $('syncEndpoint').value.trim()); toast('Sync endpoint saved'); }
+function hasMeaningfulPartnerData(p){
+  return ['Status','Spoke To','Pitch Date','Field Notes','Owner Name','Owner Contact','Next Action'].some(k=>String(p?.[k]||'').trim()) || String(p?.Status||'') !== 'Not Approached';
+}
+function mergeByKey(remote=[], local=[], key='id'){
+  const map = new Map();
+  remote.forEach(r=>map.set(String(r[key]), {...r}));
+  local.forEach(l=>{
+    const k=String(l[key]);
+    if(!k || k==='undefined') return;
+    const r=map.get(k);
+    if(!r) map.set(k, {...l});
+    else map.set(k, {...r, ...Object.fromEntries(Object.entries(l).filter(([_,v])=>v!=='' && v!=null))});
+  });
+  return [...map.values()];
+}
+async function syncRecord(type, record){
+  const url = getSyncEndpoint();
+  if(!url || !record) return false;
+  const res = await fetch(url, { method:'POST', body: JSON.stringify({ action:'upsert', type, record }) });
+  const payload = await res.json();
+  if(!payload.ok) throw new Error(payload.error || `${type} sync failed`);
+  return true;
+}
+function syncRecordSoon(type, record, label='Saved'){
+  syncRecord(type, record).then(()=>toast(`${label} + synced`)).catch(err=>toast(`${label} locally — sync failed`));
+}
 async function pullFromSheets(){
   const url = getSyncEndpoint();
   if(!url){ toast('Add sync endpoint first'); return; }
@@ -410,12 +438,12 @@ async function pullFromSheets(){
   const payload = await res.json();
   if(!payload.ok) throw new Error(payload.error || 'Pull failed');
   const data = payload.data || {};
-  state.buildings = data.buildings?.length ? data.buildings : state.buildings;
-  state.partners = data.partners?.length ? data.partners : state.partners;
-  state.captures = data.captures || [];
+  state.buildings = data.buildings?.length ? mergeByKey(data.buildings, state.buildings, 'building_key') : state.buildings;
+  state.partners = data.partners?.length ? mergeByKey(data.partners, state.partners, 'id') : state.partners;
+  state.captures = mergeByKey(data.captures || [], state.captures || [], 'id');
   state.daily = data.daily || [];
   localStorage.setItem(DAILY_KEY, JSON.stringify(state.daily));
-  save(); render(); toast('Pulled Sheets data');
+  save(); render(); toast('Pulled + merged Sheets data');
 }
 async function pushToSheets(){
   const url = getSyncEndpoint();
@@ -432,9 +460,9 @@ async function refreshFromSheetsQuiet(){
   const payload = await res.json();
   if(!payload.ok) return false;
   const data = payload.data || {};
-  if(data.buildings?.length) state.buildings = data.buildings;
-  if(data.partners?.length) state.partners = data.partners;
-  state.captures = data.captures || state.captures || [];
+  if(data.buildings?.length) state.buildings = mergeByKey(data.buildings, state.buildings, 'building_key');
+  if(data.partners?.length) state.partners = mergeByKey(data.partners, state.partners, 'id');
+  state.captures = mergeByKey(data.captures || [], state.captures || [], 'id');
   state.daily = data.daily || [];
   localStorage.setItem(DAILY_KEY, JSON.stringify(state.daily));
   save();
@@ -464,7 +492,7 @@ function init(){
   $('exportAllCsvBtn').onclick=exportAllCsvs;
   $('partnerForm').onsubmit=e=>{ e.preventDefault(); savePartnerForm(); };
   $('buildingEditForm').onsubmit=e=>{ e.preventDefault(); saveBuildingEdit(); };
-  $('captureForm').onsubmit=e=>{ e.preventDefault(); const id=$('captureId').value || `cap-${Date.now()}`; const existing=state.captures.find(c=>c.id===id); const rec={id,building_key:$('captureBuilding').value,unit_number:$('captureUnit').value,bed_count:$('captureBeds').value,floorplan_name:$('captureFloorplan').value,direction:$('captureDirection').value,notes:$('captureNotes').value,created_at:existing?.created_at||new Date().toISOString(),updated_at:new Date().toISOString()}; if(existing) Object.assign(existing,rec); else state.captures.push(rec); save(); closeDrawer('captureDrawer'); toast('Capture saved'); render(); };
+  $('captureForm').onsubmit=e=>{ e.preventDefault(); const id=$('captureId').value || `cap-${Date.now()}`; const existing=state.captures.find(c=>c.id===id); const rec={id,building_key:$('captureBuilding').value,unit_number:$('captureUnit').value,bed_count:$('captureBeds').value,floorplan_name:$('captureFloorplan').value,direction:$('captureDirection').value,notes:$('captureNotes').value,created_at:existing?.created_at||new Date().toISOString(),updated_at:new Date().toISOString()}; if(existing) Object.assign(existing,rec); else state.captures.push(rec); save(); closeDrawer('captureDrawer'); render(); syncRecordSoon('captures', rec, 'Capture saved'); };
   $('resetBtn').onclick=()=>{ if(confirm('Reset local myAPT Field Ops data to seed?')){ localStorage.removeItem(STORE_KEY); state=loadState(); toast('Reset complete'); closeDrawer('settingsDrawer'); render(); }};
   $('restoreJson').onchange=async e=>{ const f=e.target.files[0]; if(!f)return; state=JSON.parse(await f.text()); save(); toast('Backup restored'); render(); };
   $('dailyImport').onchange=async e=>{ const f=e.target.files[0]; if(!f)return; const text=await f.text(); let data=f.name.endsWith('.json')?JSON.parse(text):parseCsv(text); state.daily=data; localStorage.setItem(DAILY_KEY, JSON.stringify(data)); save(); toast('Daily opportunities imported'); renderToday(); };
