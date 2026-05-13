@@ -3,6 +3,8 @@ const DAILY_KEY = 'myapt_daily_capture_v1';
 const SYNC_ENDPOINT_KEY = 'myapt_sync_endpoint_v1';
 const PARTNER_QUEUE_KEY = 'myapt_partner_queue_today_v1';
 const DEFAULT_SYNC_ENDPOINT = 'https://script.google.com/macros/s/AKfycby0WreQ1kvsm2dxG8RBlFIly2r5_hsXgTc6AowaXC_XWySuo2s5Jh1DTvi6m-38UcaY/exec';
+const APP_VERSION = '20260512-pwa-today-sync';
+const OLD_SYNC_ENDPOINTS = ['https://script.google.com/macros/s/AKfycbz91SkhM-rYSR48XHjEpzp6bw1gWveVMtPM5Y1vLZw2t9tqzzL5nFVPybjZVwJ0lDEDOg/exec'];
 
 const statusColors = {
   'No coverage — film needed': 'red',
@@ -403,7 +405,15 @@ function exportCapturesCsv(){
   exportCsv(`myapt-captured-units-${new Date().toISOString().slice(0,10)}.csv`, rows, ['id','building_key','building_name','unit_number','bed_count','floorplan_name','direction','notes','created_at','updated_at']);
 }
 function exportAllCsvs(){ exportBuildingsCsv(); setTimeout(exportPartnersCsv,150); setTimeout(exportCapturesCsv,300); }
-function getSyncEndpoint(){ return (localStorage.getItem(SYNC_ENDPOINT_KEY) || DEFAULT_SYNC_ENDPOINT).trim(); }
+function getSyncEndpoint(){
+  const saved = (localStorage.getItem(SYNC_ENDPOINT_KEY) || '').trim();
+  if(!saved) return DEFAULT_SYNC_ENDPOINT;
+  if(OLD_SYNC_ENDPOINTS.includes(saved)){
+    localStorage.setItem(SYNC_ENDPOINT_KEY, DEFAULT_SYNC_ENDPOINT);
+    return DEFAULT_SYNC_ENDPOINT;
+  }
+  return saved;
+}
 function saveSyncEndpoint(){ localStorage.setItem(SYNC_ENDPOINT_KEY, $('syncEndpoint').value.trim()); toast('Sync endpoint saved'); }
 function hasMeaningfulPartnerData(p){
   return ['Status','Spoke To','Pitch Date','Field Notes','Owner Name','Owner Contact','Next Action'].some(k=>String(p?.[k]||'').trim()) || String(p?.Status||'') !== 'Not Approached';
@@ -474,6 +484,13 @@ function parseCsv(text){
   row.push(cur); if(row.some(v=>v!=='')) rows.push(row); const headers=rows.shift()||[]; return rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]||''])));
 }
 
+function refreshTodayOnLaunch(){
+  // iOS Home Screen apps have separate storage from Safari, so always hydrate Daily rows on launch.
+  refreshFromSheetsQuiet().then(ok=>{
+    if(ok){ render(); }
+  }).catch(()=>{});
+}
+
 function init(){
   document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
   document.querySelectorAll('[data-tab-jump]').forEach(b=>b.onclick=()=>setTab(b.dataset.tabJump));
@@ -497,5 +514,6 @@ function init(){
   $('restoreJson').onchange=async e=>{ const f=e.target.files[0]; if(!f)return; state=JSON.parse(await f.text()); save(); toast('Backup restored'); render(); };
   $('dailyImport').onchange=async e=>{ const f=e.target.files[0]; if(!f)return; const text=await f.text(); let data=f.name.endsWith('.json')?JSON.parse(text):parseCsv(text); state.daily=data; localStorage.setItem(DAILY_KEY, JSON.stringify(data)); save(); toast('Daily opportunities imported'); renderToday(); };
   render();
+  refreshTodayOnLaunch();
 }
 init();
