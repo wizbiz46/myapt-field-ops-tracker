@@ -3,7 +3,7 @@ const DAILY_KEY = 'myapt_daily_capture_v1';
 const SYNC_ENDPOINT_KEY = 'myapt_sync_endpoint_v1';
 const PARTNER_QUEUE_KEY = 'myapt_partner_queue_today_v1';
 const DEFAULT_SYNC_ENDPOINT = 'https://script.google.com/macros/s/AKfycby0WreQ1kvsm2dxG8RBlFIly2r5_hsXgTc6AowaXC_XWySuo2s5Jh1DTvi6m-38UcaY/exec';
-const APP_VERSION = '20260512-pwa-today-sync';
+const APP_VERSION = '20260512-partner-status-tap';
 const OLD_SYNC_ENDPOINTS = ['https://script.google.com/macros/s/AKfycbz91SkhM-rYSR48XHjEpzp6bw1gWveVMtPM5Y1vLZw2t9tqzzL5nFVPybjZVwJ0lDEDOg/exec'];
 
 const statusColors = {
@@ -245,16 +245,28 @@ function openBuilding(key){
 function detail(label,value){ return `<div class="detail-row"><label>${esc(label)}</label><div>${linkify(value)}</div></div>`; }
 function linkify(v){ const s=esc(v); return s.replace(/(https?:\/\/[^\s]+)/g,'<a class="link" href="$1" target="_blank" rel="noopener">$1</a>'); }
 
+function setPartnerStatus(id, status){
+  const p = state.partners.find(x=>String(x.id)===String(id));
+  if(!p) return;
+  p.Status = status;
+  if(!p['Pitch Date'] && status !== 'Not Approached') p['Pitch Date'] = new Date().toLocaleDateString();
+  p.updated_at = new Date().toISOString();
+  save();
+  renderPartners();
+  openPartner(id);
+  syncRecordSoon('partners', p, 'Partner status saved');
+}
+
 function openPartner(id){
   const p=state.partners.find(x=>x.id===id); if(!p) return;
   $('partnerDetail').innerHTML = `<h2>${esc(p['Business Name'])}</h2><p class="muted">${esc([p.Category,p.Neighborhood,`Tier ${p.Tier}`,`Score ${p.Score}`].join(' · '))}</p><div class="badges">${badgeHtml(p.Status,p.Status==='YES'?'green':p.Status==='NO'?'red':p.Status==='REVISIT'?'gold':'')}${isPartnerQueued(p.id)?badgeHtml('Queued today','blue'):''}</div>
-  <div class="actions"><button class="primary-btn" data-queue-partner="${p.id}">${isPartnerQueued(p.id)?'Remove from queue':'Queue today'}</button><button class="primary-btn" data-edit-partner="${p.id}">Edit partner</button>${['YES','NO','REVISIT','Pending','Not Approached'].map(s=>`<button class="small-btn" data-partner-status="${s}">${s}</button>`).join('')}</div>
+  <div class="actions"><button class="primary-btn" data-queue-partner="${p.id}">${isPartnerQueued(p.id)?'Remove from queue':'Queue today'}</button><button class="primary-btn" data-edit-partner="${p.id}">Edit partner</button>${['YES','NO','REVISIT','Pending','Not Approached'].map(s=>`<button type="button" class="small-btn" data-partner-status="${s}">${s}</button>`).join('')}</div>
   <div class="detail-grid">${detail('Nearby buildings',p['Nearby Buildings']||'')}${detail('Hours',p.Hours||'')}${detail('Phone',p.Phone||'')}${detail('Notes',p.Notes||'')}</div>
   <div class="form"><label>Spoke to<input id="partnerSpoke" value="${esc(p['Spoke To']||'')}" /></label><label>Field notes<textarea id="partnerNotes">${esc(p['Field Notes']||'')}</textarea></label><h3>Owner / next step</h3><label>Owner name<input id="partnerOwnerNameDetail" value="${esc(p['Owner Name']||'')}" /></label><label>Owner contact<input id="partnerOwnerContactDetail" value="${esc(p['Owner Contact']||'')}" /></label><label>Next action<select id="partnerNextActionDetail">${['','Reach Out','Come back','Placement'].map(v=>`<option ${v===(p['Next Action']||'')?'selected':''}>${v}</option>`).join('')}</select></label><button class="primary-btn" id="savePartnerBtn">Save partner</button></div>`;
   openDrawer('partnerDrawer');
   document.querySelector('[data-edit-partner]')?.addEventListener('click', ()=>openPartnerForm(id));
   bindPartnerQueueButtons($('partnerDetail'));
-  document.querySelectorAll('[data-partner-status]').forEach(b=>b.onclick=()=>{p.Status=b.dataset.partnerStatus;if(!p['Pitch Date']&&p.Status!=='Not Approached')p['Pitch Date']=new Date().toLocaleDateString();p.updated_at=new Date().toISOString();save();renderPartners();openPartner(id);syncRecordSoon('partners', p, 'Partner status saved');});
+  $('partnerDetail').onclick=e=>{ const btn=e.target.closest('[data-partner-status]'); if(!btn) return; e.preventDefault(); e.stopPropagation(); setPartnerStatus(id, btn.dataset.partnerStatus); };
   $('savePartnerBtn').onclick=()=>{p['Spoke To']=$('partnerSpoke').value;p['Field Notes']=$('partnerNotes').value;p['Owner Name']=$('partnerOwnerNameDetail').value;p['Owner Contact']=$('partnerOwnerContactDetail').value;p['Next Action']=$('partnerNextActionDetail').value;p.updated_at=new Date().toISOString();save();renderPartners();syncRecordSoon('partners', p, 'Partner saved');};
 }
 
