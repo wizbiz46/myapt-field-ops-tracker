@@ -3,7 +3,7 @@ const DAILY_KEY = 'myapt_daily_capture_v1';
 const SYNC_ENDPOINT_KEY = 'myapt_sync_endpoint_v1';
 const PARTNER_QUEUE_KEY = 'myapt_partner_queue_today_v1';
 const DEFAULT_SYNC_ENDPOINT = 'https://script.google.com/macros/s/AKfycby0WreQ1kvsm2dxG8RBlFIly2r5_hsXgTc6AowaXC_XWySuo2s5Jh1DTvi6m-38UcaY/exec';
-const APP_VERSION = '20260512-partner-status-tap';
+const APP_VERSION = '20260514-daily-threshold-4';
 const OLD_SYNC_ENDPOINTS = ['https://script.google.com/macros/s/AKfycbz91SkhM-rYSR48XHjEpzp6bw1gWveVMtPM5Y1vLZw2t9tqzzL5nFVPybjZVwJ0lDEDOg/exec'];
 
 const statusColors = {
@@ -490,6 +490,20 @@ async function refreshFromSheetsQuiet(){
   save();
   return true;
 }
+async function refreshStaticDailySnapshot(){
+  const res = await fetch(`daily-opportunities.json?v=${APP_VERSION}`, { cache: 'no-store' });
+  const payload = await res.json();
+  const rows = payload.data || payload.daily || [];
+  if(!payload.ok || !rows.length) return false;
+  const currentTs = new Date((state.daily || [])[0]?.generated_at || 0).getTime() || 0;
+  const nextTs = new Date(rows[0]?.generated_at || payload.generated_at || 0).getTime() || 0;
+  if(!state.daily?.length || nextTs >= currentTs){
+    state.daily = rows;
+    localStorage.setItem(DAILY_KEY, JSON.stringify(rows));
+    save();
+  }
+  return true;
+}
 function parseCsv(text){
   const rows=[]; let cur='', row=[], q=false;
   for(let i=0;i<text.length;i++){ const ch=text[i], next=text[i+1]; if(ch==='"'&&q&&next==='"'){cur+='"';i++;} else if(ch==='"'){q=!q;} else if(ch===','&&!q){row.push(cur);cur='';} else if((ch==='\n'||ch==='\r')&&!q){ if(ch==='\r'&&next==='\n')i++; row.push(cur); if(row.some(v=>v!=='')) rows.push(row); row=[]; cur=''; } else cur+=ch; }
@@ -498,9 +512,11 @@ function parseCsv(text){
 
 function refreshTodayOnLaunch(){
   // iOS Home Screen apps have separate storage from Safari, so always hydrate Daily rows on launch.
-  refreshFromSheetsQuiet().then(ok=>{
-    if(ok){ render(); }
-  }).catch(()=>{});
+  refreshFromSheetsQuiet()
+    .catch(()=>false)
+    .then(ok => ok ? true : refreshStaticDailySnapshot())
+    .then(ok=>{ if(ok){ render(); } })
+    .catch(()=>{});
 }
 
 function init(){

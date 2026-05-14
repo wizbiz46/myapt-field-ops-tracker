@@ -101,7 +101,7 @@ for (const buildingKey of Object.keys(buildingAgg)) {
   const distinctUnfilmedFPs = agg.unfilmedFPs.size;
   const size = norm(master.building_size).toLowerCase();
   let threshold;
-  if (size === 'large') threshold = 7;
+  if (size === 'large') threshold = 4;
   else if (size === 'small') threshold = 3;
   else continue;
   if (distinctUnfilmedFPs < threshold) continue;
