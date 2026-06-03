@@ -1,14 +1,14 @@
 {
   "ok": true,
-  "generated_at": "2026-06-02T11:02:09Z",
+  "generated_at": "2026-06-03T11:02:20Z",
   "source": "Inventory LIVE snapshot after refresh webhook + app seed building master fallback",
-  "inventory_updated_at": "2026-06-02T11:00:20.201Z",
+  "inventory_updated_at": "2026-06-03T11:00:57.206Z",
   "thresholds": {
     "large": 4,
     "small": 3
   },
-  "count": 78,
-  "unmapped_count": 17,
+  "count": 76,
+  "unmapped_count": 16,
   "unmapped_buildings": [
     "1044-VAN-60661",
     "1221-31-CHASE-60626",
@@ -22,7 +22,6 @@
     "3840-WILTON-60613",
     "4334-HAZEL-60613",
     "501-19-DEMING2508-18-60603",
-    "5240-SHERIDAN-60640",
     "6825-SHERIDAN-60626",
     "7932-ST.-60459",
     "805-LASALLE-60654",
@@ -30,7 +29,7 @@
   ],
   "opportunities": [
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "850 Lake Shore",
       "building_key": "850-LAKE-60605",
       "neighborhood": "Gold Coast",
@@ -296,7 +295,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Cobbler Square Lofts",
       "building_key": "1350-WELLS-60610",
       "neighborhood": "Old Town",
@@ -508,7 +507,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Coeval",
       "building_key": "51-14TH-60605",
       "neighborhood": "South Loop (south)",
@@ -704,7 +703,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Tides",
       "building_key": "360-SOUTH-60601",
       "neighborhood": "Lakeshore East",
@@ -719,11 +718,11 @@
         "Different tier finishes"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "27",
+      "known_floorplan_count": 27,
       "different_tier_finishes": "Yes",
-      "distinct_unfilmed_floorplans": 15,
+      "distinct_unfilmed_floorplans": 14,
       "threshold_required": 4,
-      "total_available_units": 25,
+      "total_available_units": 24,
       "units_by_floorplan": {
         "360-SOUTH-60601-1BR1BA-730": {
           "beds": 1,
@@ -733,11 +732,12 @@
             "T-4607",
             "T-0807",
             "T-4507",
-            "T-1105",
             "T-2105",
-            "T-2707"
+            "T-2707",
+            "T-3807",
+            "T-4005"
           ],
-          "unit_count": 6
+          "unit_count": 7
         },
         "360-SOUTH-60601-1BR1BA-665": {
           "beds": 1,
@@ -754,10 +754,9 @@
           "sqft": 590,
           "units": [
             "S-0310",
-            "S-1110",
             "S-0510"
           ],
-          "unit_count": 3
+          "unit_count": 2
         },
         "360-SOUTH-60601-2BR2BA-1210": {
           "beds": 2,
@@ -843,15 +842,6 @@
           ],
           "unit_count": 2
         },
-        "360-SOUTH-60601-1BR1BA-650": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 650,
-          "units": [
-            "T-3809"
-          ],
-          "unit_count": 1
-        },
         "360-SOUTH-60601-2BR2BA-1295": {
           "beds": 2,
           "baths": 2,
@@ -881,7 +871,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Shoreham",
       "building_key": "400-SOUTH-60601",
       "neighborhood": "Lakeshore East",
@@ -896,11 +886,11 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "28",
+      "known_floorplan_count": 28,
       "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 15,
+      "distinct_unfilmed_floorplans": 14,
       "threshold_required": 4,
-      "total_available_units": 25,
+      "total_available_units": 24,
       "units_by_floorplan": {
         "400-SOUTH-60601-1BR1BA-665": {
           "beds": 1,
@@ -917,10 +907,9 @@
           "sqft": 590,
           "units": [
             "S-0310",
-            "S-0510",
-            "S-1110"
+            "S-0510"
           ],
-          "unit_count": 3
+          "unit_count": 2
         },
         "400-SOUTH-60601-0BR1BA-500": {
           "beds": 0,
@@ -977,11 +966,12 @@
             "T-4507",
             "T-0807",
             "T-4607",
-            "T-1105",
             "T-2105",
-            "T-2707"
+            "T-2707",
+            "T-3807",
+            "T-4005"
           ],
-          "unit_count": 6
+          "unit_count": 7
         },
         "400-SOUTH-60601-1BR1BA-610": {
           "beds": 1,
@@ -1029,15 +1019,6 @@
           ],
           "unit_count": 1
         },
-        "400-SOUTH-60601-1BR1BA-650": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 650,
-          "units": [
-            "T-3809"
-          ],
-          "unit_count": 1
-        },
         "400-SOUTH-60601-1BR1BA-700": {
           "beds": 1,
           "baths": 1,
@@ -1058,7 +1039,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "K2",
       "building_key": "365-HALSTED-60661",
       "neighborhood": "Fulton River",
@@ -1073,11 +1054,11 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "25",
+      "known_floorplan_count": 25,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 13,
       "threshold_required": 4,
-      "total_available_units": 20,
+      "total_available_units": 21,
       "units_by_floorplan": {
         "365-HALSTED-60661-1BR1BA-881": {
           "beds": 1,
@@ -1162,9 +1143,10 @@
           "sqft": 681,
           "units": [
             "3215",
-            "2415"
+            "2415",
+            "715"
           ],
-          "unit_count": 2
+          "unit_count": 3
         },
         "365-HALSTED-60661-1BR1BA-847": {
           "beds": 1,
@@ -1214,7 +1196,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "1000M",
       "building_key": "1000-MICHIGAN-60605",
       "neighborhood": "South Loop (north)",
@@ -1230,7 +1212,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "84",
+      "known_floorplan_count": 84,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 13,
       "threshold_required": 4,
@@ -1374,7 +1356,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Arrive Streeterville",
       "building_key": "333-ONTARIO-60611",
       "neighborhood": "Streeter",
@@ -1530,7 +1512,165 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "Presidential Towers",
+      "building_key": "555-MADISON-60661",
+      "neighborhood": "West Loop",
+      "building_size": "Large",
+      "priority": "A",
+      "building_status": "P1 - DNP",
+      "dnp_flag": true,
+      "mute_alerts": false,
+      "media_status": "No coverage — film needed",
+      "badges": [
+        "DNP",
+        "On-market FPs only"
+      ],
+      "floorplan_visibility": "Only shows On Market FP",
+      "known_floorplan_count": "",
+      "different_tier_finishes": "",
+      "distinct_unfilmed_floorplans": 11,
+      "threshold_required": 4,
+      "total_available_units": 38,
+      "units_by_floorplan": {
+        "555-MADISON-60661-2BR2BA-1101": {
+          "beds": 2,
+          "baths": 2,
+          "sqft": 1101,
+          "units": [
+            "4-3910"
+          ],
+          "unit_count": 1
+        },
+        "555-MADISON-60661-1BR1BA-718": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 718,
+          "units": [
+            "3-0708",
+            "2-3208",
+            "3-3808",
+            "1-4908"
+          ],
+          "unit_count": 4
+        },
+        "555-MADISON-60661-0BR1BA-471": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 471,
+          "units": [
+            "2-2006",
+            "2-4506"
+          ],
+          "unit_count": 2
+        },
+        "555-MADISON-60661-0BR1BA-505": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 505,
+          "units": [
+            "4-4805"
+          ],
+          "unit_count": 1
+        },
+        "555-MADISON-60661-0BR1BA-546": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 546,
+          "units": [
+            "4-4709"
+          ],
+          "unit_count": 1
+        },
+        "555-MADISON-60661-1BR1BA-757": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 757,
+          "units": [
+            "1-1811",
+            "3-4111",
+            "1-3011",
+            "3-4311",
+            "4-2411",
+            "4-3411"
+          ],
+          "unit_count": 6
+        },
+        "555-MADISON-60661-1BR1BA-669": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 669,
+          "units": [
+            "4-4903",
+            "3-4003",
+            "3-4703",
+            "1-0403",
+            "4-1403",
+            "1-0903"
+          ],
+          "unit_count": 6
+        },
+        "555-MADISON-60661-1BR1BA-593": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 593,
+          "units": [
+            "3-4902",
+            "1-2501",
+            "1-3901",
+            "3-4201",
+            "4-1701",
+            "4-2602"
+          ],
+          "unit_count": 6
+        },
+        "555-MADISON-60661-0BR1BA-513": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 513,
+          "units": [
+            "4-3513",
+            "4-4713"
+          ],
+          "unit_count": 2
+        },
+        "555-MADISON-60661-1BR1BA-652": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 652,
+          "units": [
+            "4-1312",
+            "1-4312",
+            "1-4412",
+            "4-1412",
+            "2-2612",
+            "4-1612",
+            "3-2912",
+            "2-0412"
+          ],
+          "unit_count": 8
+        },
+        "555-MADISON-60661-0BR1BA-570": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 570,
+          "units": [
+            "4-2907"
+          ],
+          "unit_count": 1
+        }
+      },
+      "last_filmed_date": "Never",
+      "filmed_floorplans": "",
+      "leasing_outreach_status": "Not Started",
+      "leasing_notes": "",
+      "floorplan_docs_link": "",
+      "website": "https://www.presidentialtowersapts.com/floorplans",
+      "management_company": "Waterton",
+      "notes": ""
+    },
+    {
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "AMLI 900",
       "building_key": "900-CLARK-60605",
       "neighborhood": "South Loop (north)",
@@ -1546,7 +1686,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "11",
+      "known_floorplan_count": 11,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 10,
       "threshold_required": 4,
@@ -1679,161 +1819,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "Presidential Towers",
-      "building_key": "555-MADISON-60661",
-      "neighborhood": "West Loop",
-      "building_size": "Large",
-      "priority": "A",
-      "building_status": "P1 - DNP",
-      "dnp_flag": true,
-      "mute_alerts": false,
-      "media_status": "No coverage — film needed",
-      "badges": [
-        "DNP",
-        "On-market FPs only"
-      ],
-      "floorplan_visibility": "Only shows On Market FP",
-      "known_floorplan_count": "",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 10,
-      "threshold_required": 4,
-      "total_available_units": 42,
-      "units_by_floorplan": {
-        "555-MADISON-60661-2BR2BA-1101": {
-          "beds": 2,
-          "baths": 2,
-          "sqft": 1101,
-          "units": [
-            "4-3910",
-            "4-4110"
-          ],
-          "unit_count": 2
-        },
-        "555-MADISON-60661-1BR1BA-718": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 718,
-          "units": [
-            "3-0708",
-            "2-3208",
-            "3-3808",
-            "1-4908"
-          ],
-          "unit_count": 4
-        },
-        "555-MADISON-60661-0BR1BA-471": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 471,
-          "units": [
-            "2-2006",
-            "2-4506"
-          ],
-          "unit_count": 2
-        },
-        "555-MADISON-60661-0BR1BA-505": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 505,
-          "units": [
-            "4-4805",
-            "3-3905",
-            "3-2205",
-            "4-2905"
-          ],
-          "unit_count": 4
-        },
-        "555-MADISON-60661-1BR1BA-757": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 757,
-          "units": [
-            "1-1811",
-            "3-4111",
-            "1-3011",
-            "3-4311",
-            "4-2411",
-            "3-2111",
-            "4-3411"
-          ],
-          "unit_count": 7
-        },
-        "555-MADISON-60661-1BR1BA-669": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 669,
-          "units": [
-            "4-4903",
-            "3-4003",
-            "3-4703",
-            "1-0403",
-            "4-1403",
-            "1-0903"
-          ],
-          "unit_count": 6
-        },
-        "555-MADISON-60661-0BR1BA-570": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 570,
-          "units": [
-            "3-4307",
-            "4-2907"
-          ],
-          "unit_count": 2
-        },
-        "555-MADISON-60661-1BR1BA-593": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 593,
-          "units": [
-            "3-4902",
-            "1-2501",
-            "2-1002",
-            "1-3901",
-            "3-4201",
-            "4-1701",
-            "4-2602"
-          ],
-          "unit_count": 7
-        },
-        "555-MADISON-60661-1BR1BA-652": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 652,
-          "units": [
-            "4-1312",
-            "1-4312",
-            "1-4412",
-            "4-1412",
-            "2-2612",
-            "3-2912",
-            "2-0412"
-          ],
-          "unit_count": 7
-        },
-        "555-MADISON-60661-0BR1BA-513": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 513,
-          "units": [
-            "3-3713"
-          ],
-          "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "Not Started",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "https://www.presidentialtowersapts.com/floorplans",
-      "management_company": "Waterton",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "The Elle Apartments",
       "building_key": "801-FINANCIAL-60605",
       "neighborhood": "South Loop (north)",
@@ -1848,7 +1834,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "30",
+      "known_floorplan_count": 30,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 10,
       "threshold_required": 4,
@@ -1958,7 +1944,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Coast at Lakeshore East",
       "building_key": "345-WACKER-60601",
       "neighborhood": "Lakeshore East",
@@ -1972,7 +1958,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "52",
+      "known_floorplan_count": 52,
       "different_tier_finishes": "No",
       "distinct_unfilmed_floorplans": 10,
       "threshold_required": 4,
@@ -2083,7 +2069,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "The Gallery on Wells",
       "building_key": "637-WELLS-60654",
       "neighborhood": "River North",
@@ -2205,7 +2191,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Fulbrix",
       "building_key": "160-ELIZABETH-60607",
       "neighborhood": "West Loop",
@@ -2219,7 +2205,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "22",
+      "known_floorplan_count": 22,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 10,
       "threshold_required": 4,
@@ -2328,7 +2314,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Flora",
       "building_key": "1114-CARROLL-60607",
       "neighborhood": "West Loop",
@@ -2342,11 +2328,11 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "43",
+      "known_floorplan_count": 43,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 9,
       "threshold_required": 4,
-      "total_available_units": 10,
+      "total_available_units": 11,
       "units_by_floorplan": {
         "1114-CARROLL-60607-2BR2.5BA-2176": {
           "beds": 2,
@@ -2362,9 +2348,10 @@
           "baths": 1,
           "sqft": 771,
           "units": [
-            "407"
+            "407",
+            "807"
           ],
-          "unit_count": 1
+          "unit_count": 2
         },
         "1114-CARROLL-60607-1BR1BA-824": {
           "beds": 1,
@@ -2441,7 +2428,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "MDA Apartments",
       "building_key": "63-LAKE-60601",
       "neighborhood": "The Loop",
@@ -2455,7 +2442,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "20",
+      "known_floorplan_count": 20,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 8,
       "threshold_required": 4,
@@ -2546,7 +2533,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Avra",
       "building_key": "1125-VAN-60607",
       "neighborhood": "West Loop",
@@ -2561,7 +2548,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "25",
+      "known_floorplan_count": 25,
       "different_tier_finishes": "No",
       "distinct_unfilmed_floorplans": 8,
       "threshold_required": 4,
@@ -2653,7 +2640,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Cascade",
       "building_key": "455-WATERSIDE-60601",
       "neighborhood": "Lakeshore East",
@@ -2667,7 +2654,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "19",
+      "known_floorplan_count": 19,
       "different_tier_finishes": "No",
       "distinct_unfilmed_floorplans": 8,
       "threshold_required": 4,
@@ -2760,7 +2747,116 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "The Streeter",
+      "building_key": "345-OHIO-60611",
+      "neighborhood": "Streeter",
+      "building_size": "Large",
+      "priority": "A",
+      "building_status": "P1 - Clean",
+      "dnp_flag": false,
+      "mute_alerts": true,
+      "media_status": "YouTube usable for MVP",
+      "badges": [
+        "Muted alerts",
+        "All FPs shown"
+      ],
+      "floorplan_visibility": "All FP Shown",
+      "known_floorplan_count": 14,
+      "different_tier_finishes": "",
+      "distinct_unfilmed_floorplans": 8,
+      "threshold_required": 4,
+      "total_available_units": 13,
+      "units_by_floorplan": {
+        "345-OHIO-60611-2BR2BA-1278": {
+          "beds": 2,
+          "baths": 2,
+          "sqft": 1278,
+          "units": [
+            "1-0503",
+            "1-4403"
+          ],
+          "unit_count": 2
+        },
+        "345-OHIO-60611-2BR2BA-1233": {
+          "beds": 2,
+          "baths": 2,
+          "sqft": 1233,
+          "units": [
+            "1-0509"
+          ],
+          "unit_count": 1
+        },
+        "345-OHIO-60611-1BR1.5BA-1043": {
+          "beds": 1,
+          "baths": 1.5,
+          "sqft": 1043,
+          "units": [
+            "1-3904",
+            "1-4804"
+          ],
+          "unit_count": 2
+        },
+        "345-OHIO-60611-1BR1BA-785": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 785,
+          "units": [
+            "1-1502"
+          ],
+          "unit_count": 1
+        },
+        "345-OHIO-60611-1BR1BA-819": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 819,
+          "units": [
+            "1-4207"
+          ],
+          "unit_count": 1
+        },
+        "345-OHIO-60611-3BR3BA-1813": {
+          "beds": 3,
+          "baths": 3,
+          "sqft": 1813,
+          "units": [
+            "1-4509",
+            "1-4209",
+            "1-3409"
+          ],
+          "unit_count": 3
+        },
+        "345-OHIO-60611-0BR1BA-713": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 713,
+          "units": [
+            "1-1301",
+            "1-0201"
+          ],
+          "unit_count": 2
+        },
+        "345-OHIO-60611-0BR1BA-585": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 585,
+          "units": [
+            "1-2211"
+          ],
+          "unit_count": 1
+        }
+      },
+      "last_filmed_date": "Never",
+      "filmed_floorplans": "",
+      "leasing_outreach_status": "",
+      "leasing_notes": "",
+      "floorplan_docs_link": "",
+      "website": "https://thestreeter.com/floor-plans/",
+      "management_company": "Village Green",
+      "notes": ""
+    },
+    {
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Millie on Michigan",
       "building_key": "88-WACKER-60601",
       "neighborhood": "The Loop",
@@ -2854,7 +2950,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "The Grand Central",
       "building_key": "221-HARRISON-60607",
       "neighborhood": "South Loop (north)",
@@ -2952,7 +3048,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Reside on Green",
       "building_key": "504-GREEN-60642",
       "neighborhood": "Fulton River",
@@ -2966,7 +3062,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "60",
+      "known_floorplan_count": 60,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 7,
       "threshold_required": 4,
@@ -3046,7 +3142,102 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "Onni Fulton Market",
+      "building_key": "355-HALSTED-60661",
+      "neighborhood": "Fulton River",
+      "building_size": "Large",
+      "priority": "A",
+      "building_status": "P1 - Clean",
+      "dnp_flag": false,
+      "mute_alerts": false,
+      "media_status": "No coverage — film needed",
+      "badges": [
+        "All FPs shown"
+      ],
+      "floorplan_visibility": "All FP Shown",
+      "known_floorplan_count": 19,
+      "different_tier_finishes": "",
+      "distinct_unfilmed_floorplans": 7,
+      "threshold_required": 4,
+      "total_available_units": 8,
+      "units_by_floorplan": {
+        "355-HALSTED-60661-0BR1BA-479": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 479,
+          "units": [
+            "1612"
+          ],
+          "unit_count": 1
+        },
+        "355-HALSTED-60661-1BR1BA-574": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 574,
+          "units": [
+            "1509",
+            "1609"
+          ],
+          "unit_count": 2
+        },
+        "355-HALSTED-60661-1BR1BA-610": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 610,
+          "units": [
+            "2710"
+          ],
+          "unit_count": 1
+        },
+        "355-HALSTED-60661-2BR2BA-1001": {
+          "beds": 2,
+          "baths": 2,
+          "sqft": 1001,
+          "units": [
+            "1201"
+          ],
+          "unit_count": 1
+        },
+        "355-HALSTED-60661-2BR2BA-709": {
+          "beds": 2,
+          "baths": 2,
+          "sqft": 709,
+          "units": [
+            "2403"
+          ],
+          "unit_count": 1
+        },
+        "355-HALSTED-60661-2BR2BA-666": {
+          "beds": 2,
+          "baths": 2,
+          "sqft": 666,
+          "units": [
+            "1002"
+          ],
+          "unit_count": 1
+        },
+        "355-HALSTED-60661-2BR2BA-737": {
+          "beds": 2,
+          "baths": 2,
+          "sqft": 737,
+          "units": [
+            "2612"
+          ],
+          "unit_count": 1
+        }
+      },
+      "last_filmed_date": "Never",
+      "filmed_floorplans": "",
+      "leasing_outreach_status": "",
+      "leasing_notes": "",
+      "floorplan_docs_link": "",
+      "website": "https://www.onnifultonmarket.com/floorplans",
+      "management_company": "Onni",
+      "notes": ""
+    },
+    {
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "3Eleven",
       "building_key": "311-ILLINOIS-60654",
       "neighborhood": "River North",
@@ -3143,7 +3334,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "The Saint Grand",
       "building_key": "218-GRAND-60611",
       "neighborhood": "Streeter",
@@ -3241,7 +3432,102 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "OneEleven",
+      "building_key": "111-WACKER-60601",
+      "neighborhood": "The Loop",
+      "building_size": "Large",
+      "priority": "A",
+      "building_status": "P1 - Clean",
+      "dnp_flag": false,
+      "mute_alerts": false,
+      "media_status": "No coverage — film needed",
+      "badges": [
+        "On-market FPs only"
+      ],
+      "floorplan_visibility": "Only shows On Market FP",
+      "known_floorplan_count": "",
+      "different_tier_finishes": "",
+      "distinct_unfilmed_floorplans": 7,
+      "threshold_required": 4,
+      "total_available_units": 8,
+      "units_by_floorplan": {
+        "111-WACKER-60601-1BR1BA-780": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 780,
+          "units": [
+            "4111"
+          ],
+          "unit_count": 1
+        },
+        "111-WACKER-60601-1BR1BA-786": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 786,
+          "units": [
+            "3312",
+            "3612"
+          ],
+          "unit_count": 2
+        },
+        "111-WACKER-60601-2BR2BA-1120": {
+          "beds": 2,
+          "baths": 2,
+          "sqft": 1120,
+          "units": [
+            "3608"
+          ],
+          "unit_count": 1
+        },
+        "111-WACKER-60601-0BR1BA-639": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 639,
+          "units": [
+            "1511"
+          ],
+          "unit_count": 1
+        },
+        "111-WACKER-60601-0BR1BA-573": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 573,
+          "units": [
+            "1802"
+          ],
+          "unit_count": 1
+        },
+        "111-WACKER-60601-3BR3BA-2335": {
+          "beds": 3,
+          "baths": 3,
+          "sqft": 2335,
+          "units": [
+            "PH03"
+          ],
+          "unit_count": 1
+        },
+        "111-WACKER-60601-0BR1BA-525": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 525,
+          "units": [
+            "4509"
+          ],
+          "unit_count": 1
+        }
+      },
+      "last_filmed_date": "Never",
+      "filmed_floorplans": "",
+      "leasing_outreach_status": "Not Started",
+      "leasing_notes": "",
+      "floorplan_docs_link": "",
+      "website": "https://www.oneelevenchicago.com/floor-plans/?view=grid&sort=minsquarefeet&order=ASC&pagenumber=1",
+      "management_company": "Bozzuto",
+      "notes": ""
+    },
+    {
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Aston",
       "building_key": "200-ILLINOIS-60611",
       "neighborhood": "Streeter",
@@ -3256,7 +3542,7 @@
         "Different tier finishes"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "11",
+      "known_floorplan_count": 11,
       "different_tier_finishes": "Yes",
       "distinct_unfilmed_floorplans": 6,
       "threshold_required": 4,
@@ -3331,7 +3617,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "1350 N Lake Shore",
       "building_key": "1350-LAKE-60610",
       "neighborhood": "Gold Coast",
@@ -3347,11 +3633,11 @@
         "Different tier finishes"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "11",
+      "known_floorplan_count": 11,
       "different_tier_finishes": "Yes",
       "distinct_unfilmed_floorplans": 6,
       "threshold_required": 4,
-      "total_available_units": 21,
+      "total_available_units": 20,
       "units_by_floorplan": {
         "1350-LAKE-60610-1BR1BA-715": {
           "beds": 1,
@@ -3370,7 +3656,6 @@
           "units": [
             "100508",
             "201503",
-            "100808",
             "201708",
             "101808",
             "200718",
@@ -3383,7 +3668,7 @@
             "201302",
             "200702"
           ],
-          "unit_count": 14
+          "unit_count": 13
         },
         "1350-LAKE-60610-0BR1BA-537": {
           "beds": 0,
@@ -3433,7 +3718,92 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "Old Town Park I",
+      "building_key": "1140-WELLS-60610",
+      "neighborhood": "Old Town",
+      "building_size": "Large",
+      "priority": "A",
+      "building_status": "P1 - Clean",
+      "dnp_flag": false,
+      "mute_alerts": false,
+      "media_status": "No coverage — film needed",
+      "badges": [
+        "All FPs shown"
+      ],
+      "floorplan_visibility": "All FP Shown",
+      "known_floorplan_count": 26,
+      "different_tier_finishes": "",
+      "distinct_unfilmed_floorplans": 6,
+      "threshold_required": 4,
+      "total_available_units": 6,
+      "units_by_floorplan": {
+        "1140-WELLS-60610-0BR1BA-565": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 565,
+          "units": [
+            "1713"
+          ],
+          "unit_count": 1
+        },
+        "1140-WELLS-60610-1BR1BA-760": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 760,
+          "units": [
+            "513"
+          ],
+          "unit_count": 1
+        },
+        "1140-WELLS-60610-1BR1BA-710": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 710,
+          "units": [
+            "2110"
+          ],
+          "unit_count": 1
+        },
+        "1140-WELLS-60610-1BR1BA-740": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 740,
+          "units": [
+            "602"
+          ],
+          "unit_count": 1
+        },
+        "1140-WELLS-60610-1BR1BA-735": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 735,
+          "units": [
+            "1514"
+          ],
+          "unit_count": 1
+        },
+        "1140-WELLS-60610-1BR1BA-705": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 705,
+          "units": [
+            "206"
+          ],
+          "unit_count": 1
+        }
+      },
+      "last_filmed_date": "Never",
+      "filmed_floorplans": "",
+      "leasing_outreach_status": "",
+      "leasing_notes": "",
+      "floorplan_docs_link": "",
+      "website": "https://oldtownpark.com/availability-tower-1?_ga=2.213373140.1998176038.1774579361-841091030.1774579361&_gac=1.219794989.1774579361.EAIaIQobChMI5b7foYe_kwMViC7UAR1ARib_EAAYASAAEgJI6fD_BwE",
+      "management_company": "",
+      "notes": ""
+    },
+    {
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Hugo",
       "building_key": "411-CHICAGO-60654",
       "neighborhood": "River North",
@@ -3519,7 +3889,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Hubbard 221",
       "building_key": "221-HUBBARD-60654",
       "neighborhood": "River North",
@@ -3534,11 +3904,11 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "32",
+      "known_floorplan_count": 32,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 6,
       "threshold_required": 4,
-      "total_available_units": 6,
+      "total_available_units": 7,
       "units_by_floorplan": {
         "221-HUBBARD-60654-1BR1BA-746": {
           "beds": 1,
@@ -3567,6 +3937,16 @@
           ],
           "unit_count": 1
         },
+        "221-HUBBARD-60654-1BR1BA-721": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 721,
+          "units": [
+            "1508",
+            "1208"
+          ],
+          "unit_count": 2
+        },
         "221-HUBBARD-60654-2BR2BA-1162": {
           "beds": 2,
           "baths": 2,
@@ -3584,15 +3964,6 @@
             "605"
           ],
           "unit_count": 1
-        },
-        "221-HUBBARD-60654-1BR1BA-721": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 721,
-          "units": [
-            "1208"
-          ],
-          "unit_count": 1
         }
       },
       "last_filmed_date": "Never",
@@ -3605,94 +3976,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "North Water Apartments",
-      "building_key": "340-NORTH-60611",
-      "neighborhood": "Streeter",
-      "building_size": "Large",
-      "priority": "A",
-      "building_status": "P1 - DNP",
-      "dnp_flag": true,
-      "mute_alerts": false,
-      "media_status": "No coverage — film needed",
-      "badges": [
-        "DNP",
-        "All FPs shown"
-      ],
-      "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "12",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 6,
-      "threshold_required": 4,
-      "total_available_units": 7,
-      "units_by_floorplan": {
-        "340-NORTH-60611-0BR1BA-628": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 628,
-          "units": [
-            "3407"
-          ],
-          "unit_count": 1
-        },
-        "340-NORTH-60611-1BR1BA-787": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 787,
-          "units": [
-            "4707"
-          ],
-          "unit_count": 1
-        },
-        "340-NORTH-60611-1BR1BA-773": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 773,
-          "units": [
-            "4603"
-          ],
-          "unit_count": 1
-        },
-        "340-NORTH-60611-0BR1BA-656": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 656,
-          "units": [
-            "3804"
-          ],
-          "unit_count": 1
-        },
-        "340-NORTH-60611-0BR1BA-678": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 678,
-          "units": [
-            "4306"
-          ],
-          "unit_count": 1
-        },
-        "340-NORTH-60611-1BR1BA-770": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 770,
-          "units": [
-            "2602",
-            "2902"
-          ],
-          "unit_count": 2
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "https://northwaterapartments.prospectportal.com/chicago/north-water-apartments/conventional/",
-      "management_company": "Trinity Property Consultants",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "The Cooper",
       "building_key": "720-WELLS-60605",
       "neighborhood": "South Loop (north)",
@@ -3780,78 +4064,83 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "Onni Fulton Market",
-      "building_key": "355-HALSTED-60661",
-      "neighborhood": "Fulton River",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "North Harbor Tower",
+      "building_key": "175-HARBOR-60601",
+      "neighborhood": "Lakeshore East",
       "building_size": "Large",
       "priority": "A",
-      "building_status": "P1 - Clean",
-      "dnp_flag": false,
+      "building_status": "P1 - DNP",
+      "dnp_flag": true,
       "mute_alerts": false,
       "media_status": "No coverage — film needed",
       "badges": [
+        "DNP",
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "19",
+      "known_floorplan_count": 21,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 6,
       "threshold_required": 4,
-      "total_available_units": 7,
+      "total_available_units": 11,
       "units_by_floorplan": {
-        "355-HALSTED-60661-0BR1BA-479": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 479,
-          "units": [
-            "1612"
-          ],
-          "unit_count": 1
-        },
-        "355-HALSTED-60661-1BR1BA-574": {
+        "175-HARBOR-60601-1BR1BA-755": {
           "beds": 1,
           "baths": 1,
-          "sqft": 574,
+          "sqft": 755,
           "units": [
-            "1509",
-            "1609"
+            "209",
+            "1415",
+            "1915",
+            "1801"
+          ],
+          "unit_count": 4
+        },
+        "175-HARBOR-60601-1BR1.5BA-855": {
+          "beds": 1,
+          "baths": 1.5,
+          "sqft": 855,
+          "units": [
+            "2901",
+            "4408"
           ],
           "unit_count": 2
         },
-        "355-HALSTED-60661-1BR1BA-610": {
+        "175-HARBOR-60601-0BR1BA-465": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 465,
+          "units": [
+            "1102",
+            "402"
+          ],
+          "unit_count": 2
+        },
+        "175-HARBOR-60601-0BR1BA-475": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 475,
+          "units": [
+            "714"
+          ],
+          "unit_count": 1
+        },
+        "175-HARBOR-60601-0BR1BA-505": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 505,
+          "units": [
+            "307"
+          ],
+          "unit_count": 1
+        },
+        "175-HARBOR-60601-1BR1BA-830": {
           "beds": 1,
           "baths": 1,
-          "sqft": 610,
+          "sqft": 830,
           "units": [
-            "2710"
-          ],
-          "unit_count": 1
-        },
-        "355-HALSTED-60661-2BR2BA-1001": {
-          "beds": 2,
-          "baths": 2,
-          "sqft": 1001,
-          "units": [
-            "1201"
-          ],
-          "unit_count": 1
-        },
-        "355-HALSTED-60661-2BR2BA-709": {
-          "beds": 2,
-          "baths": 2,
-          "sqft": 709,
-          "units": [
-            "2403"
-          ],
-          "unit_count": 1
-        },
-        "355-HALSTED-60661-2BR2BA-666": {
-          "beds": 2,
-          "baths": 2,
-          "sqft": 666,
-          "units": [
-            "1002"
+            "706"
           ],
           "unit_count": 1
         }
@@ -3861,12 +4150,12 @@
       "leasing_outreach_status": "",
       "leasing_notes": "",
       "floorplan_docs_link": "",
-      "website": "https://www.onnifultonmarket.com/floorplans",
-      "management_company": "Onni",
+      "website": "https://www.northharbortowerchicago.com/floorplans?utm_source=GBP&utm_medium=Organic",
+      "management_company": "Waterton",
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Aqua",
       "building_key": "225-COLUMBUS-60601",
       "neighborhood": "Lakeshore East",
@@ -3956,7 +4245,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Arthur on Aberdeen",
       "building_key": "210-ABERDEEN-60607",
       "neighborhood": "West Loop",
@@ -3970,7 +4259,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "42",
+      "known_floorplan_count": 42,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 5,
       "threshold_required": 4,
@@ -4033,7 +4322,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Moment",
       "building_key": "545-MCCLURG-60611",
       "neighborhood": "Streeter",
@@ -4048,7 +4337,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "36",
+      "known_floorplan_count": 36,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 5,
       "threshold_required": 4,
@@ -4113,7 +4402,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Atwater",
       "building_key": "355-OHIO-60611",
       "neighborhood": "Streeter",
@@ -4131,7 +4420,7 @@
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 5,
       "threshold_required": 4,
-      "total_available_units": 12,
+      "total_available_units": 11,
       "units_by_floorplan": {
         "355-OHIO-60611-1BR1BA-929": {
           "beds": 1,
@@ -4153,10 +4442,9 @@
             "3007",
             "4007",
             "2707",
-            "2607",
-            "5007"
+            "2607"
           ],
-          "unit_count": 5
+          "unit_count": 4
         },
         "355-OHIO-60611-2BR2BA-1226": {
           "beds": 2,
@@ -4176,12 +4464,12 @@
           ],
           "unit_count": 1
         },
-        "355-OHIO-60611-2BR2BA-1235": {
-          "beds": 2,
-          "baths": 2,
-          "sqft": 1235,
+        "355-OHIO-60611-1BR1BA-785": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 785,
           "units": [
-            "2110"
+            "4911"
           ],
           "unit_count": 1
         }
@@ -4196,7 +4484,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Evo Union Park",
       "building_key": "1454-RANDOLPH-60607",
       "neighborhood": "West Loop",
@@ -4212,7 +4500,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "18",
+      "known_floorplan_count": 18,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 5,
       "threshold_required": 4,
@@ -4278,83 +4566,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "Old Town Park I",
-      "building_key": "1140-WELLS-60610",
-      "neighborhood": "Old Town",
-      "building_size": "Large",
-      "priority": "A",
-      "building_status": "P1 - Clean",
-      "dnp_flag": false,
-      "mute_alerts": false,
-      "media_status": "No coverage — film needed",
-      "badges": [
-        "All FPs shown"
-      ],
-      "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "26",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 5,
-      "threshold_required": 4,
-      "total_available_units": 5,
-      "units_by_floorplan": {
-        "1140-WELLS-60610-0BR1BA-565": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 565,
-          "units": [
-            "1713"
-          ],
-          "unit_count": 1
-        },
-        "1140-WELLS-60610-1BR1BA-760": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 760,
-          "units": [
-            "513"
-          ],
-          "unit_count": 1
-        },
-        "1140-WELLS-60610-1BR1BA-710": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 710,
-          "units": [
-            "2110"
-          ],
-          "unit_count": 1
-        },
-        "1140-WELLS-60610-1BR1BA-740": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 740,
-          "units": [
-            "602"
-          ],
-          "unit_count": 1
-        },
-        "1140-WELLS-60610-1BR1BA-735": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 735,
-          "units": [
-            "1514"
-          ],
-          "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "https://oldtownpark.com/availability-tower-1?_ga=2.213373140.1998176038.1774579361-841091030.1774579361&_gac=1.219794989.1774579361.EAIaIQobChMI5b7foYe_kwMViC7UAR1ARib_EAAYASAAEgJI6fD_BwE",
-      "management_company": "",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "369 Grand",
       "building_key": "369-GRAND-60654",
       "neighborhood": "River North",
@@ -4369,7 +4581,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "23",
+      "known_floorplan_count": 23,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 5,
       "threshold_required": 4,
@@ -4434,170 +4646,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "180 N Jefferson",
-      "building_key": "180-JEFFERSON-60661",
-      "neighborhood": "West Loop",
-      "building_size": "Large",
-      "priority": "A",
-      "building_status": "P1 - DNP",
-      "dnp_flag": true,
-      "mute_alerts": true,
-      "media_status": "YouTube usable for MVP",
-      "badges": [
-        "DNP",
-        "Muted alerts",
-        "All FPs shown"
-      ],
-      "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "12",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 5,
-      "threshold_required": 4,
-      "total_available_units": 9,
-      "units_by_floorplan": {
-        "180-JEFFERSON-60661-0BR1BA-670": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 670,
-          "units": [
-            "2105",
-            "2005",
-            "1305"
-          ],
-          "unit_count": 3
-        },
-        "180-JEFFERSON-60661-1BR1BA-690": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 690,
-          "units": [
-            "2607"
-          ],
-          "unit_count": 1
-        },
-        "180-JEFFERSON-60661-1BR1BA-750": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 750,
-          "units": [
-            "1711"
-          ],
-          "unit_count": 1
-        },
-        "180-JEFFERSON-60661-0BR1BA-640": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 640,
-          "units": [
-            "908",
-            "2108",
-            "1508"
-          ],
-          "unit_count": 3
-        },
-        "180-JEFFERSON-60661-2BR1BA-930": {
-          "beds": 2,
-          "baths": 1,
-          "sqft": 930,
-          "units": [
-            "2003"
-          ],
-          "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "https://www.180northjefferson.com/floorplans?Beds=0,1,2,3",
-      "management_company": "Exposition Residential",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "North Harbor Tower",
-      "building_key": "175-HARBOR-60601",
-      "neighborhood": "Lakeshore East",
-      "building_size": "Large",
-      "priority": "A",
-      "building_status": "P1 - DNP",
-      "dnp_flag": true,
-      "mute_alerts": false,
-      "media_status": "No coverage — film needed",
-      "badges": [
-        "DNP",
-        "All FPs shown"
-      ],
-      "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "21",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 5,
-      "threshold_required": 4,
-      "total_available_units": 9,
-      "units_by_floorplan": {
-        "175-HARBOR-60601-1BR1BA-755": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 755,
-          "units": [
-            "209",
-            "1415",
-            "1915"
-          ],
-          "unit_count": 3
-        },
-        "175-HARBOR-60601-1BR1.5BA-855": {
-          "beds": 1,
-          "baths": 1.5,
-          "sqft": 855,
-          "units": [
-            "2901",
-            "4408"
-          ],
-          "unit_count": 2
-        },
-        "175-HARBOR-60601-0BR1BA-465": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 465,
-          "units": [
-            "1102",
-            "402"
-          ],
-          "unit_count": 2
-        },
-        "175-HARBOR-60601-0BR1BA-475": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 475,
-          "units": [
-            "714"
-          ],
-          "unit_count": 1
-        },
-        "175-HARBOR-60601-1BR1BA-830": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 830,
-          "units": [
-            "706"
-          ],
-          "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "https://www.northharbortowerchicago.com/floorplans?utm_source=GBP&utm_medium=Organic",
-      "management_company": "Waterton",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "The Dylan",
       "building_key": "160-MORGAN-60607",
       "neighborhood": "West Loop",
@@ -4678,7 +4727,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "The Elizabeth",
       "building_key": "225-ELIZABETH-60607",
       "neighborhood": "West Loop",
@@ -4756,7 +4805,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "The Vivian",
       "building_key": "6807-SHERIDAN-60626",
       "neighborhood": "Edgewater",
@@ -4770,7 +4819,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "16",
+      "known_floorplan_count": 16,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 5,
       "threshold_required": 4,
@@ -4835,10 +4884,91 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "Park Michigan",
-      "building_key": "1212-MICHIGAN-60605",
-      "neighborhood": "South Loop (south)",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "1000 S Clark St",
+      "building_key": "1000-CLARK-60654",
+      "neighborhood": "South Loop (north)",
+      "building_size": "Large",
+      "priority": "A",
+      "building_status": "P1 - DNP",
+      "dnp_flag": true,
+      "mute_alerts": true,
+      "media_status": "YouTube usable for MVP",
+      "badges": [
+        "DNP",
+        "Muted alerts",
+        "On-market FPs only"
+      ],
+      "floorplan_visibility": "Only shows On Market FP",
+      "known_floorplan_count": "",
+      "different_tier_finishes": "",
+      "distinct_unfilmed_floorplans": 5,
+      "threshold_required": 4,
+      "total_available_units": 8,
+      "units_by_floorplan": {
+        "1000-CLARK-60654-3BR3BA-1700": {
+          "beds": 3,
+          "baths": 3,
+          "sqft": 1700,
+          "units": [
+            "2810"
+          ],
+          "unit_count": 1
+        },
+        "1000-CLARK-60654-1BR1BA-725": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 725,
+          "units": [
+            "2401",
+            "2601"
+          ],
+          "unit_count": 2
+        },
+        "1000-CLARK-60654-0BR1BA-537": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 537,
+          "units": [
+            "518"
+          ],
+          "unit_count": 1
+        },
+        "1000-CLARK-60654-1BR1BA-735": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 735,
+          "units": [
+            "2203",
+            "2703",
+            "1003"
+          ],
+          "unit_count": 3
+        },
+        "1000-CLARK-60654-1BR1BA-710": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 710,
+          "units": [
+            "2417"
+          ],
+          "unit_count": 1
+        }
+      },
+      "last_filmed_date": "Never",
+      "filmed_floorplans": "",
+      "leasing_outreach_status": "Not Started",
+      "leasing_notes": "",
+      "floorplan_docs_link": "",
+      "website": "https://1000southclark.com/floor-plans?type=gallery",
+      "management_company": "RMK Management",
+      "notes": ""
+    },
+    {
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "The Alfred",
+      "building_key": "30-ADAMS-60603",
+      "neighborhood": "The Loop",
       "building_size": "Large",
       "priority": "A",
       "building_status": "P1 - Clean",
@@ -4854,52 +4984,53 @@
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 5,
       "threshold_required": 4,
-      "total_available_units": 7,
+      "total_available_units": 8,
       "units_by_floorplan": {
-        "1212-MICHIGAN-60605-1BR1BA-677": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 677,
-          "units": [
-            "1711",
-            "1811"
-          ],
-          "unit_count": 2
-        },
-        "1212-MICHIGAN-60605-0BR1BA-575": {
+        "30-ADAMS-60603-0BR1BA-556": {
           "beds": 0,
           "baths": 1,
-          "sqft": 575,
+          "sqft": 556,
           "units": [
-            "2303",
-            "1803"
-          ],
-          "unit_count": 2
-        },
-        "1212-MICHIGAN-60605-0BR1BA-570": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 570,
-          "units": [
-            "3009"
+            "1104"
           ],
           "unit_count": 1
         },
-        "1212-MICHIGAN-60605-0BR1BA-555": {
+        "30-ADAMS-60603-0BR1BA-546": {
           "beds": 0,
           "baths": 1,
-          "sqft": 555,
+          "sqft": 546,
           "units": [
-            "2004"
+            "814"
           ],
           "unit_count": 1
         },
-        "1212-MICHIGAN-60605-1BR1BA-708": {
-          "beds": 1,
+        "30-ADAMS-60603-0BR1BA-542": {
+          "beds": 0,
           "baths": 1,
-          "sqft": 708,
+          "sqft": 542,
           "units": [
-            "1710"
+            "508",
+            "1108",
+            "1110",
+            "408"
+          ],
+          "unit_count": 4
+        },
+        "30-ADAMS-60603-0BR1BA-554": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 554,
+          "units": [
+            "213"
+          ],
+          "unit_count": 1
+        },
+        "30-ADAMS-60603-0BR1BA-536": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 536,
+          "units": [
+            "805"
           ],
           "unit_count": 1
         }
@@ -4909,89 +5040,12 @@
       "leasing_outreach_status": "Not Started",
       "leasing_notes": "",
       "floorplan_docs_link": "",
-      "website": "https://www.parkmichiganchicago.com/floorplans",
-      "management_company": "Horizon Realty Group",
+      "website": "https://livethealfred.com/floorplans/",
+      "management_company": "Flats",
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "OneEleven",
-      "building_key": "111-WACKER-60601",
-      "neighborhood": "The Loop",
-      "building_size": "Large",
-      "priority": "A",
-      "building_status": "P1 - Clean",
-      "dnp_flag": false,
-      "mute_alerts": false,
-      "media_status": "No coverage — film needed",
-      "badges": [
-        "On-market FPs only"
-      ],
-      "floorplan_visibility": "Only shows On Market FP",
-      "known_floorplan_count": "",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 5,
-      "threshold_required": 4,
-      "total_available_units": 6,
-      "units_by_floorplan": {
-        "111-WACKER-60601-1BR1BA-780": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 780,
-          "units": [
-            "4111"
-          ],
-          "unit_count": 1
-        },
-        "111-WACKER-60601-1BR1BA-786": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 786,
-          "units": [
-            "3312",
-            "3612"
-          ],
-          "unit_count": 2
-        },
-        "111-WACKER-60601-2BR2BA-1120": {
-          "beds": 2,
-          "baths": 2,
-          "sqft": 1120,
-          "units": [
-            "3608"
-          ],
-          "unit_count": 1
-        },
-        "111-WACKER-60601-0BR1BA-639": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 639,
-          "units": [
-            "1511"
-          ],
-          "unit_count": 1
-        },
-        "111-WACKER-60601-0BR1BA-573": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 573,
-          "units": [
-            "1802"
-          ],
-          "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "Not Started",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "https://www.oneelevenchicago.com/floor-plans/?view=grid&sort=minsquarefeet&order=ASC&pagenumber=1",
-      "management_company": "Bozzuto",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Parq Fulton",
       "building_key": "1400-RANDOLPH-60607",
       "neighborhood": "West Loop",
@@ -5007,7 +5061,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "19",
+      "known_floorplan_count": 19,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
@@ -5060,7 +5114,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "1001 S State St",
       "building_key": "1001-STATE-60605",
       "neighborhood": "South Loop (north)",
@@ -5074,7 +5128,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "17",
+      "known_floorplan_count": 17,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
@@ -5127,76 +5181,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "Eleven Thirty",
-      "building_key": "1130-MICHIGAN-60605",
-      "neighborhood": "South Loop (north)",
-      "building_size": "Large",
-      "priority": "A",
-      "building_status": "P1 - Clean",
-      "dnp_flag": false,
-      "mute_alerts": true,
-      "media_status": "YouTube usable for MVP",
-      "badges": [
-        "Muted alerts",
-        "On-market FPs only"
-      ],
-      "floorplan_visibility": "Only shows On Market FP",
-      "known_floorplan_count": "",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 4,
-      "threshold_required": 4,
-      "total_available_units": 5,
-      "units_by_floorplan": {
-        "1130-MICHIGAN-60605-1BR1BA-831": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 831,
-          "units": [
-            "3601"
-          ],
-          "unit_count": 1
-        },
-        "1130-MICHIGAN-60605-1BR1BA-641": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 641,
-          "units": [
-            "3211",
-            "4311"
-          ],
-          "unit_count": 2
-        },
-        "1130-MICHIGAN-60605-1BR1BA-843": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 843,
-          "units": [
-            "3910"
-          ],
-          "unit_count": 1
-        },
-        "1130-MICHIGAN-60605-1BR1BA-734": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 734,
-          "units": [
-            "3915"
-          ],
-          "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "Not Started",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "https://1130smichigan.com/floor-plans/",
-      "management_company": "Draper & Kramer",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Nema Chicago",
       "building_key": "1210-INDIANA-60605",
       "neighborhood": "South Loop (south)",
@@ -5263,7 +5248,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Coppia",
       "building_key": "1101-VAN-60607",
       "neighborhood": "West Loop",
@@ -5277,11 +5262,11 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "21",
+      "known_floorplan_count": 21,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
-      "total_available_units": 6,
+      "total_available_units": 7,
       "units_by_floorplan": {
         "1101-VAN-60607-1BR1BA-776": {
           "beds": 1,
@@ -5298,10 +5283,11 @@
           "baths": 1,
           "sqft": 662,
           "units": [
+            "2008",
             "1208",
             "1608"
           ],
-          "unit_count": 2
+          "unit_count": 3
         },
         "1101-VAN-60607-1BR1BA-738": {
           "beds": 1,
@@ -5332,7 +5318,75 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "North Water Apartments",
+      "building_key": "340-NORTH-60611",
+      "neighborhood": "Streeter",
+      "building_size": "Large",
+      "priority": "A",
+      "building_status": "P1 - DNP",
+      "dnp_flag": true,
+      "mute_alerts": false,
+      "media_status": "No coverage — film needed",
+      "badges": [
+        "DNP",
+        "All FPs shown"
+      ],
+      "floorplan_visibility": "All FP Shown",
+      "known_floorplan_count": 12,
+      "different_tier_finishes": "",
+      "distinct_unfilmed_floorplans": 4,
+      "threshold_required": 4,
+      "total_available_units": 4,
+      "units_by_floorplan": {
+        "340-NORTH-60611-0BR1BA-628": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 628,
+          "units": [
+            "3407"
+          ],
+          "unit_count": 1
+        },
+        "340-NORTH-60611-1BR1BA-773": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 773,
+          "units": [
+            "4603"
+          ],
+          "unit_count": 1
+        },
+        "340-NORTH-60611-0BR1BA-656": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 656,
+          "units": [
+            "3804"
+          ],
+          "unit_count": 1
+        },
+        "340-NORTH-60611-1BR1BA-770": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 770,
+          "units": [
+            "2902"
+          ],
+          "unit_count": 1
+        }
+      },
+      "last_filmed_date": "Never",
+      "filmed_floorplans": "",
+      "leasing_outreach_status": "",
+      "leasing_notes": "",
+      "floorplan_docs_link": "",
+      "website": "https://northwaterapartments.prospectportal.com/chicago/north-water-apartments/conventional/",
+      "management_company": "Trinity Property Consultants",
+      "notes": ""
+    },
+    {
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Kingsbury Plaza",
       "building_key": "520-KINGSBURY-60654",
       "neighborhood": "River North",
@@ -5350,7 +5404,7 @@
       "different_tier_finishes": "Yes",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
-      "total_available_units": 7,
+      "total_available_units": 8,
       "units_by_floorplan": {
         "520-KINGSBURY-60654-0BR1BA-605": {
           "beds": 0,
@@ -5367,9 +5421,9 @@
           "baths": 1,
           "sqft": 613,
           "units": [
-            "1-4502",
             "1-1902",
-            "1-2002"
+            "1-2002",
+            "1-2802"
           ],
           "unit_count": 3
         },
@@ -5378,9 +5432,10 @@
           "baths": 1,
           "sqft": 516,
           "units": [
-            "1-1709"
+            "1-1709",
+            "1-2109"
           ],
-          "unit_count": 1
+          "unit_count": 2
         },
         "520-KINGSBURY-60654-1BR1BA-986": {
           "beds": 1,
@@ -5402,7 +5457,76 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "Arrive Lex",
+      "building_key": "2138-INDIANA-60616",
+      "neighborhood": "South Loop (south)",
+      "building_size": "Large",
+      "priority": "A",
+      "building_status": "P1 - Clean",
+      "dnp_flag": false,
+      "mute_alerts": true,
+      "media_status": "YouTube usable for MVP",
+      "badges": [
+        "Muted alerts",
+        "On-market FPs only"
+      ],
+      "floorplan_visibility": "Only shows On Market FP",
+      "known_floorplan_count": "",
+      "different_tier_finishes": "",
+      "distinct_unfilmed_floorplans": 4,
+      "threshold_required": 4,
+      "total_available_units": 5,
+      "units_by_floorplan": {
+        "2138-INDIANA-60616-1BR1BA-598": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 598,
+          "units": [
+            "2810T"
+          ],
+          "unit_count": 1
+        },
+        "2138-INDIANA-60616-1BR1BA-697": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 697,
+          "units": [
+            "1409T",
+            "709T"
+          ],
+          "unit_count": 2
+        },
+        "2138-INDIANA-60616-1BR1BA-767": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 767,
+          "units": [
+            "1803T"
+          ],
+          "unit_count": 1
+        },
+        "2138-INDIANA-60616-1BR1BA-825": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 825,
+          "units": [
+            "802T"
+          ],
+          "unit_count": 1
+        }
+      },
+      "last_filmed_date": "Never",
+      "filmed_floorplans": "",
+      "leasing_outreach_status": "Not Started",
+      "leasing_notes": "",
+      "floorplan_docs_link": "",
+      "website": "https://arrivelex.prospectportal.com/chicago-il-apartments/arrive-lex/conventional/?_gl=1*1oysvua*_gcl_au*MTQ4NzQxOTcyNi4xNzc0ODkzMTY4",
+      "management_company": "Trinity Property Consultants",
+      "notes": ""
+    },
+    {
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "1 Superior Place",
       "building_key": "1-SUPERIOR-60654",
       "neighborhood": "River North",
@@ -5417,7 +5541,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "17",
+      "known_floorplan_count": 17,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
@@ -5471,7 +5595,78 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "180 N Jefferson",
+      "building_key": "180-JEFFERSON-60661",
+      "neighborhood": "West Loop",
+      "building_size": "Large",
+      "priority": "A",
+      "building_status": "P1 - DNP",
+      "dnp_flag": true,
+      "mute_alerts": true,
+      "media_status": "YouTube usable for MVP",
+      "badges": [
+        "DNP",
+        "Muted alerts",
+        "All FPs shown"
+      ],
+      "floorplan_visibility": "All FP Shown",
+      "known_floorplan_count": 12,
+      "different_tier_finishes": "",
+      "distinct_unfilmed_floorplans": 4,
+      "threshold_required": 4,
+      "total_available_units": 6,
+      "units_by_floorplan": {
+        "180-JEFFERSON-60661-0BR1BA-670": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 670,
+          "units": [
+            "2105",
+            "1305"
+          ],
+          "unit_count": 2
+        },
+        "180-JEFFERSON-60661-1BR1BA-750": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 750,
+          "units": [
+            "1711"
+          ],
+          "unit_count": 1
+        },
+        "180-JEFFERSON-60661-0BR1BA-640": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 640,
+          "units": [
+            "2108",
+            "2608"
+          ],
+          "unit_count": 2
+        },
+        "180-JEFFERSON-60661-2BR1BA-930": {
+          "beds": 2,
+          "baths": 1,
+          "sqft": 930,
+          "units": [
+            "2003"
+          ],
+          "unit_count": 1
+        }
+      },
+      "last_filmed_date": "Never",
+      "filmed_floorplans": "",
+      "leasing_outreach_status": "",
+      "leasing_notes": "",
+      "floorplan_docs_link": "",
+      "website": "https://www.180northjefferson.com/floorplans?Beds=0,1,2,3",
+      "management_company": "Exposition Residential",
+      "notes": ""
+    },
+    {
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Chestnut Tower",
       "building_key": "121-CHESTNUT-60610",
       "neighborhood": "River North",
@@ -5486,11 +5681,11 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "10",
+      "known_floorplan_count": 10,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
-      "total_available_units": 5,
+      "total_available_units": 4,
       "units_by_floorplan": {
         "121-CHESTNUT-60610-1BR1BA-770": {
           "beds": 1,
@@ -5524,10 +5719,9 @@
           "baths": 1,
           "sqft": 850,
           "units": [
-            "1407",
             "2507"
           ],
-          "unit_count": 2
+          "unit_count": 1
         }
       },
       "last_filmed_date": "Never",
@@ -5540,7 +5734,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "868 North Wells",
       "building_key": "868-WELLS-60610",
       "neighborhood": "Gold Coast",
@@ -5556,7 +5750,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "24",
+      "known_floorplan_count": 24,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
@@ -5611,7 +5805,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Sinclair",
       "building_key": "1201-LASALLE-60610",
       "neighborhood": "Gold Coast",
@@ -5679,7 +5873,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "State & Chestnut",
       "building_key": "845-STATE-60610",
       "neighborhood": "Gold Coast",
@@ -5694,7 +5888,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "25",
+      "known_floorplan_count": 25,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
@@ -5747,7 +5941,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "The Hudson",
       "building_key": "750-HUDSON-60654",
       "neighborhood": "River North",
@@ -5761,7 +5955,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "15",
+      "known_floorplan_count": 15,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
@@ -5814,7 +6008,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "River North Park",
       "building_key": "320-ILLINOIS-60654",
       "neighborhood": "River North",
@@ -5833,7 +6027,7 @@
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
-      "total_available_units": 6,
+      "total_available_units": 7,
       "units_by_floorplan": {
         "320-ILLINOIS-60654-1BR1BA-726": {
           "beds": 1,
@@ -5860,9 +6054,10 @@
           "sqft": 724,
           "units": [
             "2315",
+            "2303",
             "1203"
           ],
-          "unit_count": 2
+          "unit_count": 3
         },
         "320-ILLINOIS-60654-1BR1BA-774": {
           "beds": 1,
@@ -5884,7 +6079,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "North+Vine",
       "building_key": "633-NORTH-60610",
       "neighborhood": "Old Town",
@@ -5899,7 +6094,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "27",
+      "known_floorplan_count": 27,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
@@ -5952,7 +6147,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "The Edison",
       "building_key": "5200-SHERIDAN-60640",
       "neighborhood": "Edgewater",
@@ -6025,7 +6220,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "NEXT Apartments",
       "building_key": "347-CHESTNUT-60610",
       "neighborhood": "River North",
@@ -6095,76 +6290,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "Columbus Plaza",
-      "building_key": "233-WACKER-60601",
-      "neighborhood": "Lakeshore East",
-      "building_size": "Large",
-      "priority": "A",
-      "building_status": "",
-      "dnp_flag": false,
-      "mute_alerts": true,
-      "media_status": "Complete",
-      "badges": [
-        "Muted alerts",
-        "All FPs shown"
-      ],
-      "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "8",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 4,
-      "threshold_required": 4,
-      "total_available_units": 5,
-      "units_by_floorplan": {
-        "233-WACKER-60601-1BR1BA-795": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 795,
-          "units": [
-            "1-4201"
-          ],
-          "unit_count": 1
-        },
-        "233-WACKER-60601-1BR1BA-563": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 563,
-          "units": [
-            "1-3503"
-          ],
-          "unit_count": 1
-        },
-        "233-WACKER-60601-1BR1BA-792": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 792,
-          "units": [
-            "1-2506",
-            "1-0806"
-          ],
-          "unit_count": 2
-        },
-        "233-WACKER-60601-1BR1BA-590": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 590,
-          "units": [
-            "1-1408"
-          ],
-          "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "",
-      "management_company": "",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Old Town Park II",
       "building_key": "204-HILL-60610",
       "neighborhood": "Old Town",
@@ -6178,7 +6304,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "17",
+      "known_floorplan_count": 17,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
@@ -6235,7 +6361,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "One Six Six",
       "building_key": "166-ABERDEEN-60607",
       "neighborhood": "West Loop",
@@ -6250,7 +6376,7 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "42",
+      "known_floorplan_count": 42,
       "different_tier_finishes": "No",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
@@ -6303,81 +6429,9 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "1000 S Clark St",
-      "building_key": "1000-CLARK-60654",
-      "neighborhood": "South Loop (north)",
-      "building_size": "Large",
-      "priority": "A",
-      "building_status": "P1 - DNP",
-      "dnp_flag": true,
-      "mute_alerts": true,
-      "media_status": "YouTube usable for MVP",
-      "badges": [
-        "DNP",
-        "Muted alerts",
-        "On-market FPs only"
-      ],
-      "floorplan_visibility": "Only shows On Market FP",
-      "known_floorplan_count": "",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 4,
-      "threshold_required": 4,
-      "total_available_units": 7,
-      "units_by_floorplan": {
-        "1000-CLARK-60654-1BR1BA-725": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 725,
-          "units": [
-            "2401",
-            "2601"
-          ],
-          "unit_count": 2
-        },
-        "1000-CLARK-60654-0BR1BA-537": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 537,
-          "units": [
-            "518"
-          ],
-          "unit_count": 1
-        },
-        "1000-CLARK-60654-1BR1BA-735": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 735,
-          "units": [
-            "2203",
-            "2703",
-            "1003"
-          ],
-          "unit_count": 3
-        },
-        "1000-CLARK-60654-1BR1BA-710": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 710,
-          "units": [
-            "2417"
-          ],
-          "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "Not Started",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "https://1000southclark.com/floor-plans?type=gallery",
-      "management_company": "RMK Management",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "The Duncan",
-      "building_key": "1515-MONROE-60607",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "Mason",
+      "building_key": "180-ADA-60607",
       "neighborhood": "West Loop",
       "building_size": "Large",
       "priority": "A",
@@ -6390,45 +6444,46 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "114",
+      "known_floorplan_count": 29,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
-      "total_available_units": 4,
+      "total_available_units": 5,
       "units_by_floorplan": {
-        "1515-MONROE-60607-0BR1BA-350": {
-          "beds": 0,
+        "180-ADA-60607-1BR1BA-691": {
+          "beds": 1,
           "baths": 1,
-          "sqft": 350,
+          "sqft": 691,
           "units": [
-            "113"
+            "705"
           ],
           "unit_count": 1
         },
-        "1515-MONROE-60607-1BR1BA-598": {
+        "180-ADA-60607-1BR1BA-710": {
           "beds": 1,
           "baths": 1,
-          "sqft": 598,
+          "sqft": 710,
           "units": [
-            "A316"
+            "801",
+            "701"
+          ],
+          "unit_count": 2
+        },
+        "180-ADA-60607-1BR1BA-770": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 770,
+          "units": [
+            "420"
           ],
           "unit_count": 1
         },
-        "1515-MONROE-60607-1BR1BA-484": {
+        "180-ADA-60607-1BR1BA-609": {
           "beds": 1,
           "baths": 1,
-          "sqft": 484,
+          "sqft": 609,
           "units": [
-            "421"
-          ],
-          "unit_count": 1
-        },
-        "1515-MONROE-60607-1BR1BA-597": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 597,
-          "units": [
-            "A212"
+            "413"
           ],
           "unit_count": 1
         }
@@ -6438,12 +6493,12 @@
       "leasing_outreach_status": "",
       "leasing_notes": "",
       "floorplan_docs_link": "",
-      "website": "https://livetheduncan.com/floorplans/",
-      "management_company": "Flats",
+      "website": "https://www.liveatthemason.com/floorplans",
+      "management_company": "Waterton",
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Burnham Pointe",
       "building_key": "730-CLARK-60605",
       "neighborhood": "South Loop (north)",
@@ -6457,31 +6512,21 @@
         "All FPs shown"
       ],
       "floorplan_visibility": "All FP Shown",
-      "known_floorplan_count": "20",
+      "known_floorplan_count": 20,
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 4,
       "threshold_required": 4,
-      "total_available_units": 7,
+      "total_available_units": 6,
       "units_by_floorplan": {
-        "730-CLARK-60605-1BR1.5BA-963": {
-          "beds": 1,
-          "baths": 1.5,
-          "sqft": 963,
-          "units": [
-            "906"
-          ],
-          "unit_count": 1
-        },
         "730-CLARK-60605-1BR1BA-735": {
           "beds": 1,
           "baths": 1,
           "sqft": 735,
           "units": [
-            "2201",
             "2501",
             "1301"
           ],
-          "unit_count": 3
+          "unit_count": 2
         },
         "730-CLARK-60605-2BR2BA-1046": {
           "beds": 2,
@@ -6501,6 +6546,15 @@
             "1004"
           ],
           "unit_count": 1
+        },
+        "730-CLARK-60605-1BR1.5BA-963": {
+          "beds": 1,
+          "baths": 1.5,
+          "sqft": 963,
+          "units": [
+            "1206"
+          ],
+          "unit_count": 1
         }
       },
       "last_filmed_date": "Never",
@@ -6513,145 +6567,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "The Alfred",
-      "building_key": "30-ADAMS-60603",
-      "neighborhood": "The Loop",
-      "building_size": "Large",
-      "priority": "A",
-      "building_status": "P1 - Clean",
-      "dnp_flag": false,
-      "mute_alerts": true,
-      "media_status": "YouTube usable for MVP",
-      "badges": [
-        "Muted alerts",
-        "On-market FPs only"
-      ],
-      "floorplan_visibility": "Only shows On Market FP",
-      "known_floorplan_count": "",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 4,
-      "threshold_required": 4,
-      "total_available_units": 7,
-      "units_by_floorplan": {
-        "30-ADAMS-60603-0BR1BA-556": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 556,
-          "units": [
-            "1104"
-          ],
-          "unit_count": 1
-        },
-        "30-ADAMS-60603-0BR1BA-546": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 546,
-          "units": [
-            "814"
-          ],
-          "unit_count": 1
-        },
-        "30-ADAMS-60603-0BR1BA-542": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 542,
-          "units": [
-            "508",
-            "1108",
-            "1110",
-            "408"
-          ],
-          "unit_count": 4
-        },
-        "30-ADAMS-60603-0BR1BA-554": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 554,
-          "units": [
-            "213"
-          ],
-          "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "Not Started",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "https://livethealfred.com/floorplans/",
-      "management_company": "Flats",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "Env",
-      "building_key": "161-KINZIE-60654",
-      "neighborhood": "River North",
-      "building_size": "Large",
-      "priority": "A",
-      "building_status": "P1 - Clean",
-      "dnp_flag": false,
-      "mute_alerts": false,
-      "media_status": "No coverage — film needed",
-      "badges": [
-        "On-market FPs only"
-      ],
-      "floorplan_visibility": "Only shows On Market FP",
-      "known_floorplan_count": "",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 4,
-      "threshold_required": 4,
-      "total_available_units": 4,
-      "units_by_floorplan": {
-        "161-KINZIE-60654-1BR1BA-853": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 853,
-          "units": [
-            "1704"
-          ],
-          "unit_count": 1
-        },
-        "161-KINZIE-60654-1BR1BA-879": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 879,
-          "units": [
-            "1609"
-          ],
-          "unit_count": 1
-        },
-        "161-KINZIE-60654-2BR2BA-1145": {
-          "beds": 2,
-          "baths": 2,
-          "sqft": 1145,
-          "units": [
-            "1602"
-          ],
-          "unit_count": 1
-        },
-        "161-KINZIE-60654-0BR1BA-603": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 603,
-          "units": [
-            "2707"
-          ],
-          "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "Not Started",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "https://www.envchicago.com/chicago-apartments-for-rent/",
-      "management_company": "Bozzuto",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "820 Michigan",
       "building_key": "820-MICHIGAN-60605",
       "neighborhood": "South Loop (north)",
@@ -6791,7 +6707,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Logan Apartments",
       "building_key": "2522-MILWAUKEE-60647",
       "neighborhood": "Logan Square",
@@ -6919,7 +6835,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Astoria Tower",
       "building_key": "8-9TH.-60605",
       "neighborhood": "South Loop (north)",
@@ -7037,7 +6953,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Reside on Jackson",
       "building_key": "1241-JACKSON-60607",
       "neighborhood": "West Loop",
@@ -7138,7 +7054,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Solverre",
       "building_key": "4600-MARINE-60640",
       "neighborhood": "Uptown",
@@ -7154,7 +7070,7 @@
       "different_tier_finishes": "",
       "distinct_unfilmed_floorplans": 7,
       "threshold_required": 4,
-      "total_available_units": 11,
+      "total_available_units": 12,
       "units_by_floorplan": {
         "4600-MARINE-60640-0BR1BA-616": {
           "beds": 0,
@@ -7192,9 +7108,10 @@
           "baths": 1,
           "sqft": 935,
           "units": [
-            "715"
+            "715",
+            "615"
           ],
-          "unit_count": 1
+          "unit_count": 2
         },
         "4600-MARINE-60640-0BR1BA-450": {
           "beds": 0,
@@ -7234,7 +7151,166 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "The Draper",
+      "building_key": "5050-BROADWAY-60640",
+      "neighborhood": "Uptown",
+      "building_size": "Large",
+      "priority": "B",
+      "building_status": "",
+      "dnp_flag": false,
+      "mute_alerts": false,
+      "media_status": "Needs Review",
+      "badges": [],
+      "floorplan_visibility": "",
+      "known_floorplan_count": "",
+      "different_tier_finishes": "",
+      "distinct_unfilmed_floorplans": 6,
+      "threshold_required": 4,
+      "total_available_units": 6,
+      "units_by_floorplan": {
+        "5050-BROADWAY-60640-0BR1BA-398": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 398,
+          "units": [
+            "319"
+          ],
+          "unit_count": 1
+        },
+        "5050-BROADWAY-60640-0BR1BA-426": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 426,
+          "units": [
+            "412"
+          ],
+          "unit_count": 1
+        },
+        "5050-BROADWAY-60640-0BR1BA-356": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 356,
+          "units": [
+            "627"
+          ],
+          "unit_count": 1
+        },
+        "5050-BROADWAY-60640-1BR1BA-879": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 879,
+          "units": [
+            "755"
+          ],
+          "unit_count": 1
+        },
+        "5050-BROADWAY-60640-0BR1BA-454": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 454,
+          "units": [
+            "507"
+          ],
+          "unit_count": 1
+        },
+        "5050-BROADWAY-60640-0BR1BA-411": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 411,
+          "units": [
+            "204"
+          ],
+          "unit_count": 1
+        }
+      },
+      "last_filmed_date": "Never",
+      "filmed_floorplans": "",
+      "leasing_outreach_status": "",
+      "leasing_notes": "",
+      "floorplan_docs_link": "",
+      "website": "",
+      "management_company": "",
+      "notes": ""
+    },
+    {
+      "generated_at": "2026-06-03T11:02:20Z",
+      "building_name": "Eight Eleven Uptown",
+      "building_key": "811-AGATITE-60640",
+      "neighborhood": "Uptown",
+      "building_size": "Large",
+      "priority": "B",
+      "building_status": "",
+      "dnp_flag": false,
+      "mute_alerts": false,
+      "media_status": "Needs Review",
+      "badges": [],
+      "floorplan_visibility": "",
+      "known_floorplan_count": "",
+      "different_tier_finishes": "",
+      "distinct_unfilmed_floorplans": 5,
+      "threshold_required": 4,
+      "total_available_units": 7,
+      "units_by_floorplan": {
+        "811-AGATITE-60640-1BR1BA-715": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 715,
+          "units": [
+            "2604",
+            "2504"
+          ],
+          "unit_count": 2
+        },
+        "811-AGATITE-60640-1BR1BA-765": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 765,
+          "units": [
+            "817"
+          ],
+          "unit_count": 1
+        },
+        "811-AGATITE-60640-1BR1BA-700": {
+          "beds": 1,
+          "baths": 1,
+          "sqft": 700,
+          "units": [
+            "2712"
+          ],
+          "unit_count": 1
+        },
+        "811-AGATITE-60640-0BR1BA-525": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 525,
+          "units": [
+            "2115",
+            "2615"
+          ],
+          "unit_count": 2
+        },
+        "811-AGATITE-60640-0BR1BA-490": {
+          "beds": 0,
+          "baths": 1,
+          "sqft": 490,
+          "units": [
+            "1011"
+          ],
+          "unit_count": 1
+        }
+      },
+      "last_filmed_date": "Never",
+      "filmed_floorplans": "",
+      "leasing_outreach_status": "",
+      "leasing_notes": "",
+      "floorplan_docs_link": "",
+      "website": "",
+      "management_company": "",
+      "notes": ""
+    },
+    {
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "Flair Tower",
       "building_key": "222-ERIE-60654",
       "neighborhood": "River North",
@@ -7279,15 +7355,6 @@
           ],
           "unit_count": 1
         },
-        "222-ERIE-60654-1BR1BA-870": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 870,
-          "units": [
-            "1410"
-          ],
-          "unit_count": 1
-        },
         "222-ERIE-60654-1BR1BA-700": {
           "beds": 1,
           "baths": 1,
@@ -7296,145 +7363,13 @@
             "1208"
           ],
           "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "",
-      "management_company": "",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "The Draper",
-      "building_key": "5050-BROADWAY-60640",
-      "neighborhood": "Uptown",
-      "building_size": "Large",
-      "priority": "B",
-      "building_status": "",
-      "dnp_flag": false,
-      "mute_alerts": false,
-      "media_status": "Needs Review",
-      "badges": [],
-      "floorplan_visibility": "",
-      "known_floorplan_count": "",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 5,
-      "threshold_required": 4,
-      "total_available_units": 5,
-      "units_by_floorplan": {
-        "5050-BROADWAY-60640-0BR1BA-398": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 398,
-          "units": [
-            "319"
-          ],
-          "unit_count": 1
         },
-        "5050-BROADWAY-60640-0BR1BA-426": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 426,
-          "units": [
-            "412"
-          ],
-          "unit_count": 1
-        },
-        "5050-BROADWAY-60640-0BR1BA-356": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 356,
-          "units": [
-            "627"
-          ],
-          "unit_count": 1
-        },
-        "5050-BROADWAY-60640-0BR1BA-454": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 454,
-          "units": [
-            "507"
-          ],
-          "unit_count": 1
-        },
-        "5050-BROADWAY-60640-0BR1BA-411": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 411,
-          "units": [
-            "204"
-          ],
-          "unit_count": 1
-        }
-      },
-      "last_filmed_date": "Never",
-      "filmed_floorplans": "",
-      "leasing_outreach_status": "",
-      "leasing_notes": "",
-      "floorplan_docs_link": "",
-      "website": "",
-      "management_company": "",
-      "notes": ""
-    },
-    {
-      "generated_at": "2026-06-02T11:02:09Z",
-      "building_name": "Eight Eleven Uptown",
-      "building_key": "811-AGATITE-60640",
-      "neighborhood": "Uptown",
-      "building_size": "Large",
-      "priority": "B",
-      "building_status": "",
-      "dnp_flag": false,
-      "mute_alerts": false,
-      "media_status": "Needs Review",
-      "badges": [],
-      "floorplan_visibility": "",
-      "known_floorplan_count": "",
-      "different_tier_finishes": "",
-      "distinct_unfilmed_floorplans": 4,
-      "threshold_required": 4,
-      "total_available_units": 6,
-      "units_by_floorplan": {
-        "811-AGATITE-60640-1BR1BA-715": {
+        "222-ERIE-60654-1BR1BA-724": {
           "beds": 1,
           "baths": 1,
-          "sqft": 715,
+          "sqft": 724,
           "units": [
-            "2604",
-            "2504"
-          ],
-          "unit_count": 2
-        },
-        "811-AGATITE-60640-1BR1BA-765": {
-          "beds": 1,
-          "baths": 1,
-          "sqft": 765,
-          "units": [
-            "817"
-          ],
-          "unit_count": 1
-        },
-        "811-AGATITE-60640-0BR1BA-525": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 525,
-          "units": [
-            "2115",
-            "2615"
-          ],
-          "unit_count": 2
-        },
-        "811-AGATITE-60640-0BR1BA-490": {
-          "beds": 0,
-          "baths": 1,
-          "sqft": 490,
-          "units": [
-            "1011"
+            "2206"
           ],
           "unit_count": 1
         }
@@ -7449,7 +7384,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "The Lofts at Gin Alley",
       "building_key": "120-GREEN-60607",
       "neighborhood": "West Loop",
@@ -7514,7 +7449,7 @@
       "notes": ""
     },
     {
-      "generated_at": "2026-06-02T11:02:09Z",
+      "generated_at": "2026-06-03T11:02:20Z",
       "building_name": "ONE333",
       "building_key": "1333-WABASH-60605",
       "neighborhood": "South Loop (south)",
